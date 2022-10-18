@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Яна Ионова](https://up.htmlacademy.ru/react/11/user/1619187).
-* Наставник: `Неизвестно`.
+- Студент: [Яна Ионова](https://up.htmlacademy.ru/react/11/user/1619187).
+- Наставник: [Евгений Колегов](https://htmlacademy.ru/profile/id21780).
 
 ---
 
