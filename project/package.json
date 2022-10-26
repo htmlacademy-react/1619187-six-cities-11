@@ -73,6 +73,9 @@
     "axios-mock-adapter": "^1.21.2",
     "eslint-config-htmlacademy": "^8.0.0",
     "faker": "^5.5.3",
+    "i": "^0.3.7",
+    "npm": "^8.19.2",
+    "react-helmet-async": "^1.3.0",
     "typescript": "^4.8.4"
   }
 }
