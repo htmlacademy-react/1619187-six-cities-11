@@ -2,7 +2,7 @@ function OfferCard () : JSX.Element {
   return (
     <article className="cities__card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <a href="/">
           <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place"/>
         </a>
       </div>
@@ -26,7 +26,7 @@ function OfferCard () : JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <a href="/">Wood and stone place</a>
         </h2>
         <p className="place-card__type">Private room</p>
       </div>
