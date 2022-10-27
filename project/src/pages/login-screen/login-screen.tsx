@@ -11,7 +11,7 @@ function LoginScreen () : JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo/>
+              <Logo logoLinkStatus = {false}/>
             </div>
           </div>
         </div>

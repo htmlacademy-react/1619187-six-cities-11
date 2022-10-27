@@ -10,14 +10,14 @@ type MainScreenProps = {
 }
 
 function MainScreen ({placeCardCount} : MainScreenProps) : JSX.Element { //компонент всегда должен возвращать JSX.Element
-  const offerCardComponents = Array.from({ length: placeCardCount }).map(() => <OfferCard key = {1}/>);
+  // const offerCardComponents = Array.from({ length: placeCardCount }).map(() => <OfferCard key = {1}/>);
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo/>
+              <Logo logoLinkStatus/>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -99,7 +99,11 @@ function MainScreen ({placeCardCount} : MainScreenProps) : JSX.Element { //ко�
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offerCardComponents}
+                <OfferCard/>
+                <OfferCard/>
+                <OfferCard/>
+                <OfferCard/>
+                <OfferCard/>
               </div>
             </section>
             <div className="cities__right-section">

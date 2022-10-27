@@ -13,7 +13,7 @@ function NotFoundScreen () : JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo/>
+              <Logo logoLinkStatus = {false}/>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

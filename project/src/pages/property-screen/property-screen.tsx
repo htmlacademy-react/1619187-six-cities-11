@@ -5,13 +5,13 @@ function PropertyScreen () : JSX.Element {
   return (
     <div className="page">
       <Helmet>
-        <title>Карточка предложения для зарегистрированного пользователя</title>
+        <title>Информация о месте для аренды</title>
       </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo/>
+              <Logo logoLinkStatus = {false}/>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
