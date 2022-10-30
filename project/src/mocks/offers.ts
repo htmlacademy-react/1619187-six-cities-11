@@ -1,6 +1,6 @@
 import {Offer} from '../types/offer';
 
-export const offers: Offer[] = [{
+export const offers: Offer = [{
   id: 1,
   images: ['img/img/apartment-02.jpg', 'img/img/apartment-01.jpg', 'img/img/apartment-03.jpg'],
   title: 'Beautiful & luxurious studio at great location',

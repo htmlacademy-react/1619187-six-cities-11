@@ -11,11 +11,16 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavouritePrivateRoute from '../favourite-private-route/favourite-private-route';
 import LoginPrivateRoute from '../login-private-route/login-private-route';
 
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
+
 type AppScreenProps = {
   placeCardCount: number;
+  offers: Offer;
+  reviews: Review;
 }
 
-function App({placeCardCount}: AppScreenProps): JSX.Element {
+function App({placeCardCount,offers, reviews}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
