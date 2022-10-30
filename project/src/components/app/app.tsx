@@ -15,19 +15,18 @@ import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 
 type AppScreenProps = {
-  placeCardCount: number;
-  offers: Offer;
-  reviews: Review;
+  offers: Offer[];
+  reviews: Review[];
 }
 
-function App({placeCardCount,offers, reviews}: AppScreenProps): JSX.Element {
+function App({offers, reviews}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen placeCardCount={placeCardCount} />}
+            element={<MainScreen />}
           />
           <Route
             path={AppRoute.Login}

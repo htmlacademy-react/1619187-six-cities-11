@@ -11,4 +11,4 @@ export type Review = {
   rating: number;
   date: string;
   comment: string;
-}[];
+};

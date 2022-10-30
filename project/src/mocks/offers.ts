@@ -1,6 +1,6 @@
 import {Offer} from '../types/offer';
 
-export const offers: Offer = [{
+export const offers: Offer[] = [{
   id: 1,
   images: ['img/img/apartment-02.jpg', 'img/img/apartment-01.jpg', 'img/img/apartment-03.jpg'],
   title: 'Beautiful & luxurious studio at great location',
@@ -13,7 +13,7 @@ export const offers: Offer = [{
   maxAdults: 4,
   price: 120,
   insideList: ['Wi-Fi', 'Washing machine', 'Kitchen'],
-  previewImage: 'img/1.png',
+  previewImage: 'img/apartment-01.jpg',
   hostInformation: {
     id: 3,
     avatarUrl: 'img/1.png',
@@ -35,7 +35,7 @@ export const offers: Offer = [{
   maxAdults: 2,
   price: 62,
   insideList: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Cable TV'],
-  previewImage: 'img/1.png',
+  previewImage: 'img/apartment-02.jpg',
   hostInformation: {
     id: 1,
     avatarUrl: 'img/1.png',
@@ -57,7 +57,7 @@ export const offers: Offer = [{
   maxAdults: 4,
   price: 658,
   insideList: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
-  previewImage: 'img/1.png',
+  previewImage: 'img/apartment-01.jpg',
   hostInformation: {
     id: 2,
     avatarUrl: 'img/1.png',
@@ -79,7 +79,7 @@ export const offers: Offer = [{
   maxAdults: 2,
   price: 135,
   insideList: ['Wi-Fi'],
-  previewImage: 'img/1.png',
+  previewImage: 'img/apartment-03.jpg',
   hostInformation: {
     id: 4,
     avatarUrl: 'img/1.png',

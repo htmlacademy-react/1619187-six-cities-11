@@ -21,5 +21,5 @@ export type Offer = {
   isPremium: boolean;
   reviews: number[]; //уточнить про связь отзывов и самого предложения жилья
   previewImage: string; //предварительный просмотр изображения
-}[];
+};
 
