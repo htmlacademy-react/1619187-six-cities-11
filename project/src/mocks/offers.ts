@@ -28,7 +28,7 @@ export const offers: Offer[] = [{
   title: 'A great base for anyone who wants to explore the best tourist attractions',
   description: 'We are within 30 minutes reach from our awesome capital city Amsterdam, the typical Dutch village Zaanse Schans.',
   isFavorite: false,
-  isPremium: false,
+  isPremium: true,
   type: 'room',
   rating: 5,
   bedrooms: 1,
@@ -47,7 +47,7 @@ export const offers: Offer[] = [{
 {
   id: 3,
   images: ['img/img/apartment-03.jpg'],
-  title: 'Welcome to this stunning 200m2 monumental canal house on the most beautiful canal area close to Dam square and nine streets!',
+  title: 'Welcome to this stunning 200m2 monumental house!',
   description: 'Enjoy its many windows, the comfortable boxspring beds and bathtub overlooking the canal ;-)',
   isFavorite: true,
   isPremium: false,
@@ -69,7 +69,7 @@ export const offers: Offer[] = [{
 {
   id: 4,
   images: ['img/img/apartment-02.jpg'],
-  title: 'Hotel Amsterdam is situated in the hip, up-and-coming neighbourhood of Amsterdam Noord',
+  title: 'Hotel is situated in the hip, up-and-coming neighbourhood of Amsterdam Noord',
   description: 'Our restaurant is the perfect place to hang out, all day long. ',
   isFavorite: false,
   isPremium: false,

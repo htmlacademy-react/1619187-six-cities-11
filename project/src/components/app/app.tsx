@@ -19,7 +19,7 @@ type AppScreenProps = {
   reviews: Review[];
 }
 
-function App({offers, reviews}: AppScreenProps): JSX.Element {
+function App({offers, reviews}: AppScreenProps): JSX.Element { //принимает массив моковых данных из индекс
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -40,7 +40,7 @@ function App({offers, reviews}: AppScreenProps): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <FavouritePrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <FavoritesScreen />
+                <FavoritesScreen offers={offers}/>
               </FavouritePrivateRoute>
             }
           />
