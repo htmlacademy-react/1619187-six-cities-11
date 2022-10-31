@@ -1,5 +1,6 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 
 function PropertyNotLoggedScreen () : JSX.Element {
   return (
@@ -16,13 +17,13 @@ function PropertyNotLoggedScreen () : JSX.Element {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href="/"
+                    to={'/login'}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__login">Sign in</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
