@@ -19,7 +19,7 @@ export type Offer = {
   hostInformation: Host;
   isFavorite: boolean;
   isPremium: boolean;
-  reviews: number[]; //уточнить про связь отзывов и самого предложения жилья
-  previewImage: string; //предварительный просмотр изображения
+  reviews: number[];
+  previewImage: string;
 };
 

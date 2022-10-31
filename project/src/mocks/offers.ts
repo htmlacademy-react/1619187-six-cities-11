@@ -20,7 +20,7 @@ export const offers: Offer[] = [{
     isPro: true,
     name: 'Angelina'
   },
-  reviews: [1,2], //ид отзыва, подходящего для данного предложения,правильно ли связала их?
+  reviews: [1,2], //ид отзыва, подходящего для данного предложения
 },
 {
   id: 2,
@@ -42,7 +42,7 @@ export const offers: Offer[] = [{
     isPro: true,
     name: 'Marcella'
   },
-  reviews: [1], //ид отзыва, подходящего для данного предложенияправильно ли связала их?
+  reviews: [1],
 },
 {
   id: 3,
@@ -64,7 +64,7 @@ export const offers: Offer[] = [{
     isPro: false,
     name: 'Willie'
   },
-  reviews: [2,3], //ид отзыва, подходящего для данного предложенияправильно ли связала их?
+  reviews: [2,3],
 },
 {
   id: 4,
@@ -86,5 +86,5 @@ export const offers: Offer[] = [{
     isPro: false,
     name: 'Bunk'
   },
-  reviews: [1,2,3], //ид отзыва, подходящего для данного предложения,правильно ли связала их?
+  reviews: [1,2,3],
 }];

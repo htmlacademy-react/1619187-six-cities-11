@@ -6,7 +6,7 @@ import {offers} from '../../mocks/offers';
 import OfferList from '../../components/offer-list/offer-list';
 import {Link} from 'react-router-dom';
 
-function MainScreen () : JSX.Element { //компонент всегда должен возвращать JSX.Element
+function MainScreen () : JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
