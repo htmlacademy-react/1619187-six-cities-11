@@ -1,16 +1,13 @@
 import React from 'react';
 
 function CommentForm () : JSX.Element {
-  const [formData, setFormData] = React.useState({ //setFormData-функция, котопая обновляет состояние. Создаем объект для хранения
-    review: '',
-  });
 
+  const [formData, setFormData] = React.useState('');
   const [rating, setRating] = React.useState(0);
 
   //что бы записать значение из полей формы в состояние нужен обработчик
   const fieldChangeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const {name, value} = evt.target;
-    setFormData({...formData, [name]: value});
+    setFormData(evt.target.value);
   };
 
   const inputClickHandler = (evt: React.MouseEvent<HTMLInputElement> ) => {
@@ -31,7 +28,7 @@ function CommentForm () : JSX.Element {
           defaultValue={5}
           id="5-stars"
           type="radio"
-          checked={rating === 5}
+          defaultChecked={rating === 5}
           onClick={inputClickHandler}
 
         />
@@ -50,7 +47,7 @@ function CommentForm () : JSX.Element {
           defaultValue={4}
           id="4-stars"
           type="radio"
-          checked={rating >= 4}
+          defaultChecked={rating === 4}
           onClick={inputClickHandler}
         />
         <label
@@ -68,7 +65,7 @@ function CommentForm () : JSX.Element {
           defaultValue={3}
           id="3-stars"
           type="radio"
-          checked={rating >= 3}
+          defaultChecked={rating === 3}
           onClick={inputClickHandler}
         />
         <label
@@ -86,7 +83,7 @@ function CommentForm () : JSX.Element {
           defaultValue={2}
           id="2-stars"
           type="radio"
-          checked={rating >= 2}
+          defaultChecked={rating === 2}
           onClick={inputClickHandler}
         />
         <label
@@ -104,7 +101,7 @@ function CommentForm () : JSX.Element {
           defaultValue={1}
           id="1-star"
           type="radio"
-          checked={rating >= 1}
+          defaultChecked={rating === 1}
           onClick={inputClickHandler}
         />
         <label
@@ -123,7 +120,7 @@ function CommentForm () : JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={fieldChangeHandler}
-        value={formData.review}
+        value={formData}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

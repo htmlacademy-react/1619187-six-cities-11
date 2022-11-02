@@ -3,6 +3,7 @@ import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
 import { Link } from 'react-router-dom';
 
+
 function PropertyScreen () : JSX.Element {
   return (
     <div className="page">

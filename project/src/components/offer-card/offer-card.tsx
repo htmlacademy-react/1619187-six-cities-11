@@ -1,13 +1,27 @@
+import React from 'react';
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
 
 type OfferCardProps = {
+  changeSetActive: (id: number)=> void;
   offer: Offer;
 }
 
-function OfferCard ({offer}: OfferCardProps) : JSX.Element {
+function OfferCard ({offer, changeSetActive}: OfferCardProps) : JSX.Element {
+
+  //что бы записать значение из полей формы в состояние нужен обработчик
+  const offerMouseEnterHandler = () => {
+    changeSetActive(offer.id);
+  };
+  const offerMouseleaveHandler = () => {
+    changeSetActive(0);
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card"
+      onMouseEnter={offerMouseEnterHandler}
+      onMouseLeave={offerMouseleaveHandler}
+    >
       {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -32,7 +46,7 @@ function OfferCard ({offer}: OfferCardProps) : JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: `${Math.round(100 / 5 * offer.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

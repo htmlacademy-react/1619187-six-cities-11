@@ -19,7 +19,6 @@ export type Offer = {
   hostInformation: Host;
   isFavorite: boolean;
   isPremium: boolean;
-  reviews: number[];
   previewImage: string;
 };
 
