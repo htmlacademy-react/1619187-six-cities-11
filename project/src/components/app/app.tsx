@@ -11,18 +11,22 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavouritePrivateRoute from '../favourite-private-route/favourite-private-route';
 import LoginPrivateRoute from '../login-private-route/login-private-route';
 
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
+
 type AppScreenProps = {
-  placeCardCount: number;
+  offers: Offer[];
+  reviews: Review[];
 }
 
-function App({placeCardCount}: AppScreenProps): JSX.Element {
+function App({offers, reviews}: AppScreenProps): JSX.Element { //принимает массив моковых данных из индекс
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen placeCardCount={placeCardCount} />}
+            element={<MainScreen />}
           />
           <Route
             path={AppRoute.Login}
@@ -35,8 +39,8 @@ function App({placeCardCount}: AppScreenProps): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <FavouritePrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesScreen />
+              <FavouritePrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <FavoritesScreen offers={offers}/>
               </FavouritePrivateRoute>
             }
           />

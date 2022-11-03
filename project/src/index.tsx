@@ -2,10 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-
-const Setting = { //enum- перечисление в виде объекта. В результате компиляции получится обычный JavaScript-объект.
-  PlaceCardCount: 5,
-} as const;
+import {offers} from './mocks/offers';
+import {reviews} from './mocks/reviews';
 
 
 const root = ReactDOM.createRoot(
@@ -15,6 +13,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placeCardCount= {Setting.PlaceCardCount}/>
+    <App
+      offers = {offers} //передаем моки
+      reviews = {reviews}
+    />
   </React.StrictMode>
 );

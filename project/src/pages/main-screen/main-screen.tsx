@@ -1,16 +1,12 @@
 //в странички будем импортировать более мелкие компоненты из components, например, хедер, футер, карточки и тд
 //сами стр потом импортируем в app
 
-import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
+import {offers} from '../../mocks/offers';
+import OfferList from '../../components/offer-list/offer-list';
+import {Link} from 'react-router-dom';
 
-
-type MainScreenProps = {
-  placeCardCount: number; //количество карточек, которые нужно отобразить на страничке
-}
-
-function MainScreen ({placeCardCount} : MainScreenProps) : JSX.Element { //компонент всегда должен возвращать JSX.Element
-  // const offerCardComponents = Array.from({ length: placeCardCount }).map(() => <OfferCard key = {1}/>);
+function MainScreen () : JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -22,17 +18,17 @@ function MainScreen ({placeCardCount} : MainScreenProps) : JSX.Element { //ко�
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
+                  <Link className="header__nav-link header__nav-link--profile" to={'/favorites'}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                     <span className="header__favorite-count">3</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
+                  <Link className="header__nav-link" to={'/'}>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -82,7 +78,7 @@ function MainScreen ({placeCardCount} : MainScreenProps) : JSX.Element { //ко�
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeCardCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -99,11 +95,7 @@ function MainScreen ({placeCardCount} : MainScreenProps) : JSX.Element { //ко�
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferCard/>
-                <OfferCard/>
-                <OfferCard/>
-                <OfferCard/>
-                <OfferCard/>
+                <OfferList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
