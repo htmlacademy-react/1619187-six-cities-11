@@ -4,9 +4,18 @@ export type Host = {
   name: string;
   isPro: boolean;
 }
+export type Location = {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+};
 
 export type Offer = {
   id: number;
+  city: {
+    location: Location;
+    name: string;
+  };
   images: string[];
   title: string;
   description: string;
@@ -20,5 +29,6 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   previewImage: string;
+  location: Location;
 };
 

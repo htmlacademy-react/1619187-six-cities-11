@@ -4,15 +4,16 @@ import {Offer} from '../../types/offer';
 
 type OfferListProps = {
   offers: Offer[];
+  onListItemHover: (id: number)=> void;
 }
 
-function OfferList ({offers}:OfferListProps): JSX.Element { //принимает массив офферов, перебираем его map и рендерим каждый оффер, которому передаем данные из моков
+function OfferList ({offers, onListItemHover}:OfferListProps): JSX.Element { //принимает массив офферов, перебираем его map и рендерим каждый оффер, которому передаем данные из моков
 
-  const [, setActive] = React.useState(0); //будем сохранять в состояние id карточки, на которую навели курсор. active - пока удалила, тк не испольщуется
 
   function changeSetActive (id: number) {
-    setActive(id);
+    onListItemHover(id);
   }
+
 
   return (
     <>
