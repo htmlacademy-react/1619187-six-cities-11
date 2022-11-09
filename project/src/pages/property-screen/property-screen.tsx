@@ -2,7 +2,7 @@ import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
 import { Link } from 'react-router-dom';
-
+import {reviews} from '../../mocks/reviews';
 
 function PropertyScreen () : JSX.Element {
   return (
@@ -24,7 +24,7 @@ function PropertyScreen () : JSX.Element {
                     to={'/favorites'}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
+                    <span className="header__user-name user__reviews__listname">
                   Oliver.conner@gmail.com
                     </span>
                     <span className="header__favorite-count">3</span>
@@ -171,7 +171,7 @@ function PropertyScreen () : JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-              Reviews · <span className="reviews__amount">1</span>
+              Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ul className="reviews__list">
                   <li className="reviews__item">
