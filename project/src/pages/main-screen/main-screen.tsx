@@ -1,12 +1,27 @@
 //в странички будем импортировать более мелкие компоненты из components, например, хедер, футер, карточки и тд
 //сами стр потом импортируем в app
 
+import React, { useState } from 'react';
 import Logo from '../../components/logo/logo';
+import Map from '../../components/map/map';
 import {offers} from '../../mocks/offers';
+import {CITY} from '../../mocks/city';
 import OfferList from '../../components/offer-list/offer-list';
 import {Link} from 'react-router-dom';
+import { Offer } from '../../types/offer';
+
 
 function MainScreen () : JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<Offer>();
+
+  const onListItemHover = (listItemId: number) => {
+    const currentPoint = offers.find((offer) =>
+      offer.id === listItemId,
+    );
+
+    setSelectedOffer(currentPoint);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -95,11 +110,12 @@ function MainScreen () : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={offers}/>
+                <OfferList offers={offers} onListItemHover={onListItemHover}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
+                <Map city={CITY} offers={offers} selectedOffer={selectedOffer}/>
               </section>
             </div>
           </div>

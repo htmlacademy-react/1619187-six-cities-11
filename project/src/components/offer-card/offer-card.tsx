@@ -1,4 +1,3 @@
-import React from 'react';
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
 
@@ -13,6 +12,7 @@ function OfferCard ({offer, changeSetActive}: OfferCardProps) : JSX.Element {
   const offerMouseEnterHandler = () => {
     changeSetActive(offer.id);
   };
+
   const offerMouseleaveHandler = () => {
     changeSetActive(0);
   };
@@ -46,7 +46,7 @@ function OfferCard ({offer, changeSetActive}: OfferCardProps) : JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(100 / 5 * offer.rating)}%`}}></span>
+            <span style={{width: `${100 / 5 * Math.round(offer.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
