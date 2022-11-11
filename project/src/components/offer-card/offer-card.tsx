@@ -4,9 +4,11 @@ import {Link} from 'react-router-dom';
 type OfferCardProps = {
   changeSetActive: (id: number)=> void;
   offer: Offer;
+  classnameForCard: string;
+  classnameForImg: string;
 }
 
-function OfferCard ({offer, changeSetActive}: OfferCardProps) : JSX.Element {
+function OfferCard ({offer, classnameForCard, classnameForImg, changeSetActive}: OfferCardProps) : JSX.Element {
 
   //что бы записать значение из полей формы в состояние нужен обработчик
   const offerMouseEnterHandler = () => {
@@ -18,7 +20,7 @@ function OfferCard ({offer, changeSetActive}: OfferCardProps) : JSX.Element {
   };
 
   return (
-    <article className="cities__card place-card"
+    <article className={`${classnameForCard} place-card`}
       onMouseEnter={offerMouseEnterHandler}
       onMouseLeave={offerMouseleaveHandler}
     >
@@ -26,7 +28,7 @@ function OfferCard ({offer, changeSetActive}: OfferCardProps) : JSX.Element {
       <div className="place-card__mark">
         <span>Premium</span>
       </div> }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classnameForImg} place-card__image-wrapper`}>
         <a href="/">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
         </a>

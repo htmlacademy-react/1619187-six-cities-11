@@ -110,7 +110,7 @@ function MainScreen () : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={offers} onListItemHover={onListItemHover}/>
+                <OfferList offers={offers} onListItemHover={onListItemHover} classnameForCard={'cities__card'} classnameForImg={'cities__image-wrapper'}/>
               </div>
             </section>
             <div className="cities__right-section">

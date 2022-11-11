@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 import {reviews} from '../../mocks/reviews';
 import {nearOffers} from '../../mocks/near-offer';
 import ReviewList from '../../components/review-list/review-list';
-import NearOfferList from '../../components/near-offer-list/near-offer-list';
+import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {CITY} from '../../mocks/city';
-import { Offer } from '../../types/offer';
+import {Offer} from '../../types/offer';
+
 
 function PropertyScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
@@ -197,7 +198,7 @@ function PropertyScreen () : JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map">
+          <section className="property__map map" style={{width: '1144px', marginRight: 'auto', marginLeft: 'auto'}}>
             <Map city={CITY} offers={nearOffers} selectedOffer={selectedOffer}/>
           </section>
         </section>
@@ -207,7 +208,7 @@ function PropertyScreen () : JSX.Element {
           Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <NearOfferList nearOffers={nearOffers} onListItemHover={onListItemHover}/>
+              <OfferList offers={nearOffers} onListItemHover={onListItemHover} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
             </div>
           </section>
         </div>
