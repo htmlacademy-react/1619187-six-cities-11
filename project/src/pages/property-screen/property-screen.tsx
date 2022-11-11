@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
@@ -6,17 +7,20 @@ import {reviews} from '../../mocks/reviews';
 import {nearOffers} from '../../mocks/near-offer';
 import ReviewList from '../../components/review-list/review-list';
 import NearOfferList from '../../components/near-offer-list/near-offer-list';
+import Map from '../../components/map/map';
+import {CITY} from '../../mocks/city';
+import { Offer } from '../../types/offer';
 
 function PropertyScreen () : JSX.Element {
-  // const [selectedOffer, setSelectedOffer] = useState<Offer>();
+  const [selectedOffer, setSelectedOffer] = useState<Offer>();
 
-  // const onListItemHover = (listItemId: number) => {
-  //   const currentPoint = offers.find((offer) =>
-  //     offer.id === listItemId,
-  //   );
+  const onListItemHover = (listItemId: number) => {
+    const currentPoint = nearOffers.find((nearOffer) =>
+      nearOffer.id === listItemId,
+    );
 
-  //   setSelectedOffer(currentPoint);
-  // };
+    setSelectedOffer(currentPoint);
+  };
 
   return (
     <div className="page">
@@ -193,7 +197,9 @@ function PropertyScreen () : JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map" />
+          <section className="property__map map">
+            <Map city={CITY} offers={nearOffers} selectedOffer={selectedOffer}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -201,7 +207,7 @@ function PropertyScreen () : JSX.Element {
           Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <NearOfferList nearOffers={nearOffers}/>
+              <NearOfferList nearOffers={nearOffers} onListItemHover={onListItemHover}/>
             </div>
           </section>
         </div>

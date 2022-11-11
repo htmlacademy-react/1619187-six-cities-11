@@ -2,13 +2,23 @@ import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
 
 type NearOfferCardProps = {
-  //changeSetActive: (id: number)=> void;
+  changeSetActive: (id: number)=> void;
   nearOffer: Offer;
 }
 
-function NearOfferCard ({nearOffer}: NearOfferCardProps) : JSX.Element {
+function NearOfferCard ({nearOffer, changeSetActive}: NearOfferCardProps) : JSX.Element {
+  const offerMouseEnterHandler = () => {
+    changeSetActive(nearOffer.id);
+  };
+
+  const offerMouseleaveHandler = () => {
+    changeSetActive(0);
+  };
   return (
-    <article className="near-places__card place-card">
+    <article className="near-places__card place-card"
+      onMouseEnter={offerMouseEnterHandler}
+      onMouseLeave={offerMouseleaveHandler}
+    >
       {nearOffer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

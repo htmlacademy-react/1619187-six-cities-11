@@ -28,7 +28,7 @@ function CommentForm () : JSX.Element {
           defaultValue={5}
           id="5-stars"
           type="radio"
-          checked={rating === 5}
+          defaultChecked={rating === 5}
           onClick={inputClickHandler}
 
         />
@@ -47,7 +47,7 @@ function CommentForm () : JSX.Element {
           defaultValue={4}
           id="4-stars"
           type="radio"
-          checked={rating === 4}
+          defaultChecked={rating === 4}
           onClick={inputClickHandler}
         />
         <label
@@ -65,7 +65,7 @@ function CommentForm () : JSX.Element {
           defaultValue={3}
           id="3-stars"
           type="radio"
-          checked={rating === 3}
+          defaultChecked={rating === 3}
           onClick={inputClickHandler}
         />
         <label
@@ -83,7 +83,7 @@ function CommentForm () : JSX.Element {
           defaultValue={2}
           id="2-stars"
           type="radio"
-          checked={rating === 2}
+          defaultChecked={rating === 2}
           onClick={inputClickHandler}
         />
         <label
@@ -101,7 +101,7 @@ function CommentForm () : JSX.Element {
           defaultValue={1}
           id="1-star"
           type="radio"
-          checked={rating === 1}
+          defaultChecked={rating === 1}
           onClick={inputClickHandler}
         />
         <label

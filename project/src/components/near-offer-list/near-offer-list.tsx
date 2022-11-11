@@ -3,18 +3,19 @@ import {Offer} from '../../types/offer';
 
 type NearOfferListProps = {
   nearOffers: Offer[];
+  onListItemHover: (id: number)=> void;
 }
 
-function NearOfferList ({nearOffers}:NearOfferListProps): JSX.Element {
+function NearOfferList ({nearOffers, onListItemHover}:NearOfferListProps): JSX.Element {
 
-  // function changeSetActive (id: number) {
-  //   onListItemHover(id);
-  // }
+  function changeSetActive (id: number) {
+    onListItemHover(id);
+  }
 
 
   return (
     <>
-      {nearOffers.map((nearOffer) => <NearOfferCard nearOffer={nearOffer} key = {nearOffer.id} />)}
+      {nearOffers.map((nearOffer) => <NearOfferCard nearOffer={nearOffer} key = {nearOffer.id} changeSetActive={changeSetActive}/>)}
     </>
   );
 }
