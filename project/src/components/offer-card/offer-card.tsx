@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom';
 type OfferCardProps = {
   changeSetActive: (id: number)=> void;
   offer: Offer;
-  classnameForCard: string;
-  classnameForImg: string;
+  classNameForCard: string;
+  classNameForImg: string;
 }
 
-function OfferCard ({offer, classnameForCard, classnameForImg, changeSetActive}: OfferCardProps) : JSX.Element {
+function OfferCard ({offer, classNameForCard, classNameForImg, changeSetActive}: OfferCardProps) : JSX.Element {
 
   //что бы записать значение из полей формы в состояние нужен обработчик
   const offerMouseEnterHandler = () => {
@@ -20,7 +20,7 @@ function OfferCard ({offer, classnameForCard, classnameForImg, changeSetActive}:
   };
 
   return (
-    <article className={`${classnameForCard} place-card`}
+    <article className={`${classNameForCard} place-card`}
       onMouseEnter={offerMouseEnterHandler}
       onMouseLeave={offerMouseleaveHandler}
     >
@@ -28,10 +28,10 @@ function OfferCard ({offer, classnameForCard, classnameForImg, changeSetActive}:
       <div className="place-card__mark">
         <span>Premium</span>
       </div> }
-      <div className={`${classnameForImg} place-card__image-wrapper`}>
-        <a href="/">
+      <div className={`${classNameForImg} place-card__image-wrapper`}>
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
