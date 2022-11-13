@@ -43,7 +43,7 @@ function App({offers}: AppScreenProps): JSX.Element { //принимает ма�
           />
           <Route
             path={`${AppRoute.Room}/:id`}
-            element={<PropertyScreen/>}
+            element={<PropertyScreen offers={offers}/>}
           />
           <Route
             path="*"

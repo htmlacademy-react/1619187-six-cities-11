@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {reviews} from '../../mocks/reviews';
 import {nearOffers} from '../../mocks/near-offer';
 import ReviewList from '../../components/review-list/review-list';
@@ -11,17 +11,15 @@ import Map from '../../components/map/map';
 import {CITY} from '../../mocks/city';
 import {Offer} from '../../types/offer';
 
+type PropertyScreenProps = {
+  offers: Offer[];
+}
 
-function PropertyScreen () : JSX.Element {
-  const [selectedOffer, setSelectedOffer] = useState<Offer>();
+function PropertyScreen ({offers}: PropertyScreenProps) : JSX.Element {
+  const params = useParams();
+  const currentOffer = offers.find((offer) => params.id === String(offer.id)); //оффер который отображается в property-screen
 
-  const onListItemHover = (listItemId: number) => {
-    const currentPoint = nearOffers.find((nearOffer) =>
-      nearOffer.id === listItemId,
-    );
-
-    setSelectedOffer(currentPoint);
-  };
+  const newOffers = currentOffer ? [...nearOffers, currentOffer] : [];
 
   return (
     <div className="page">
@@ -199,7 +197,7 @@ function PropertyScreen () : JSX.Element {
             </div>
           </div>
           <section className="property__map map" style={{width: '1144px', marginRight: 'auto', marginLeft: 'auto'}}>
-            <Map city={CITY} offers={nearOffers} selectedOffer={selectedOffer}/>
+            <Map city={CITY} offers={newOffers} selectedOffer={currentOffer}/>
           </section>
         </section>
         <div className="container">
@@ -208,7 +206,7 @@ function PropertyScreen () : JSX.Element {
           Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <OfferList offers={nearOffers} onListItemHover={onListItemHover} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
+              <OfferList offers={nearOffers} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
             </div>
           </section>
         </div>

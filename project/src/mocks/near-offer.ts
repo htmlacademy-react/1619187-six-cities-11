@@ -29,8 +29,8 @@ export const nearOffers: Offer[] = [{
     name: 'Angelina'
   },
   location: {
-    latitude: 52.3909553943508,
-    longitude: 4.85309666406198,
+    latitude: 52.37548585990128,
+    longitude: 4.8588706874558,
     zoom: 8,
   }
 },
@@ -63,8 +63,8 @@ export const nearOffers: Offer[] = [{
     name: 'Marcella'
   },
   location: {
-    latitude: 52.3609553943508,
-    longitude: 4.85309666406198,
+    latitude: 52.33400379783423,
+    longitude: 4.793305242405964,
     zoom: 8,
   }
 },
@@ -97,8 +97,8 @@ export const nearOffers: Offer[] = [{
     name: 'Willie'
   },
   location: {
-    latitude: 52.3909553943508,
-    longitude: 4.929309666406198,
+    latitude: 52.375306367779665,
+    longitude:  4.814180339260396,
     zoom: 8,
   }
 },
