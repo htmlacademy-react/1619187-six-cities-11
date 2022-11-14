@@ -10,16 +10,13 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavouritePrivateRoute from '../favourite-private-route/favourite-private-route';
 import LoginPrivateRoute from '../login-private-route/login-private-route';
-
 import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
 
 type AppScreenProps = {
   offers: Offer[];
-  reviews: Review[];
 }
 
-function App({offers, reviews}: AppScreenProps): JSX.Element { //принимает массив моковых данных из индекс
+function App({offers}: AppScreenProps): JSX.Element { //принимает массив моковых данных из индекс
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -46,7 +43,7 @@ function App({offers, reviews}: AppScreenProps): JSX.Element { //принима�
           />
           <Route
             path={`${AppRoute.Room}/:id`}
-            element={<PropertyScreen/>}
+            element={<PropertyScreen offers={offers}/>}
           />
           <Route
             path="*"

@@ -24,7 +24,7 @@ export type Offer = {
   bedrooms: number;
   maxAdults: number;
   price: number;
-  insideList: string[];
+  goods: string[];
   hostInformation: Host;
   isFavorite: boolean;
   isPremium: boolean;
