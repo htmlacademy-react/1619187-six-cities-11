@@ -102,4 +102,106 @@ export const nearOffers: Offer[] = [{
     zoom: 8,
   }
 },
+{
+  id: 14,
+  city: {
+    location: {
+      latitude: 48.85612303673775,
+      longitude: 2.3549292541869713,
+      zoom: 10,
+    },
+    name: 'Paris',
+  },
+  images: ['img/img/apartment-03.jpg'],
+  title: 'Welcome to this stunning 200m2 monumental house!',
+  description: 'Enjoy its many windows, the comfortable boxspring beds and bathtub overlooking the canal ;-)',
+  isFavorite: true,
+  isPremium: true,
+  type: 'house',
+  rating: 5,
+  bedrooms: 5,
+  maxAdults: 10,
+  price: 800,
+  goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
+  previewImage: 'img/apartment-01.jpg',
+  hostInformation: {
+    id: 2,
+    avatarUrl: 'img/1.png',
+    isPro: false,
+    name: 'Willie'
+  },
+  location: {
+    latitude: 48.86766820441926,
+    longitude:  2.3319606588396558,
+    zoom: 8,
+  }
+},
+{
+  id: 15,
+  city: {
+    location: {
+      latitude: 48.85612303673775,
+      longitude: 2.3549292541869713,
+      zoom: 10,
+    },
+    name: 'Paris',
+  },
+  images: ['img/img/apartment-03.jpg'],
+  title: 'Welcome to this stunning 200m2 monumental house!',
+  description: 'Enjoy its many windows, the comfortable boxspring beds and bathtub overlooking the canal ;-)',
+  isFavorite: true,
+  isPremium: true,
+  type: 'house',
+  rating: 5,
+  bedrooms: 5,
+  maxAdults: 10,
+  price: 800,
+  goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
+  previewImage: 'img/apartment-01.jpg',
+  hostInformation: {
+    id: 2,
+    avatarUrl: 'img/1.png',
+    isPro: false,
+    name: 'Willie'
+  },
+  location: {
+    latitude: 48.859370895859655,
+    longitude:   2.3059871046807374,
+    zoom: 8,
+  }
+},
+{
+  id: 16,
+  city: {
+    location: {
+      latitude: 48.85612303673775,
+      longitude: 2.3549292541869713,
+      zoom: 10,
+    },
+    name: 'Paris',
+  },
+  images: ['img/img/apartment-03.jpg'],
+  title: 'Welcome to this stunning 200m2 monumental house!',
+  description: 'Enjoy its many windows, the comfortable boxspring beds and bathtub overlooking the canal ;-)',
+  isFavorite: true,
+  isPremium: true,
+  type: 'house',
+  rating: 5,
+  bedrooms: 5,
+  maxAdults: 10,
+  price: 800,
+  goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
+  previewImage: 'img/apartment-01.jpg',
+  hostInformation: {
+    id: 2,
+    avatarUrl: 'img/1.png',
+    isPro: false,
+    name: 'Willie'
+  },
+  location: {
+    latitude: 48.86512636132674,
+    longitude:  2.332633567848498,
+    zoom: 8,
+  }
+},
 ];

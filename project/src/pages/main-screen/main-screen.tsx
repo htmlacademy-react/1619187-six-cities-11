@@ -1,21 +1,32 @@
 //в странички будем импортировать более мелкие компоненты из components, например, хедер, футер, карточки и тд
 //сами стр потом импортируем в app
 
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import {offers} from '../../mocks/offers';
-import {CITY} from '../../mocks/city';
+import {CITIES} from '../../const';
 import OfferList from '../../components/offer-list/offer-list';
 import {Link} from 'react-router-dom';
 import { Offer } from '../../types/offer';
-
+import CitiesList from '../../components/cities-list/cities-list';
+import { setOffers } from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setOffers(offers));
+  }, [dispatch]);
+
+  const filteredOffers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
+  const currentCity = useAppSelector((state) => state.city);
+  const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const onListItemHover = (listItemId: number) => {
-    const currentPoint = offers.find((offer) =>
+    const currentPoint = filteredOffers.find((offer) =>
       offer.id === listItemId,
     );
 
@@ -50,42 +61,12 @@ function MainScreen () : JSX.Element {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="/">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              <CitiesList cities={CITIES}/>
             </ul>
           </section>
         </div>
@@ -93,7 +74,7 @@ function MainScreen () : JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{filteredOffers.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -110,12 +91,12 @@ function MainScreen () : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={offers} onListItemHover={onListItemHover} classnameForCard={'cities__card'} classnameForImg={'cities__image-wrapper'}/>
+                <OfferList offers={filteredOffers} onListItemHover={onListItemHover} classnameForCard={'cities__card'} classnameForImg={'cities__image-wrapper'}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={CITY} offers={offers} selectedOffer={selectedOffer}/>
+                <Map city={filteredCity[0]} offers={filteredOffers} selectedOffer={selectedOffer}/>
               </section>
             </div>
           </div>

@@ -14,7 +14,6 @@ type MapProps = {
 function Map ({city, offers, selectedOffer}: MapProps) : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap({mapRef, city});
-
   const defaultCustomIcon = leaflet.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [27, 39],
@@ -29,6 +28,8 @@ function Map ({city, offers, selectedOffer}: MapProps) : JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([city.lat,city.lng], city.zoom);
+
       offers.forEach((offer) => {
         leaflet
           .marker({

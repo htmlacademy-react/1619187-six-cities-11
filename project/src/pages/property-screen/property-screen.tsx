@@ -1,4 +1,3 @@
-import React from 'react';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
@@ -8,8 +7,9 @@ import {nearOffers} from '../../mocks/near-offer';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import {CITY} from '../../mocks/city';
+import {CITIES} from '../../const';
 import {Offer} from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 
 type PropertyScreenProps = {
   offers: Offer[];
@@ -19,7 +19,10 @@ function PropertyScreen ({offers}: PropertyScreenProps) : JSX.Element {
   const params = useParams();
   const currentOffer = offers.find((offer) => params.id === String(offer.id)); //оффер который отображается в property-screen
 
-  const newOffers = currentOffer ? [...nearOffers, currentOffer] : [];
+  const currentCity = useAppSelector((state) => state.city);
+  const filteredCity = CITIES.filter((city) => city.title === currentCity);
+  const filteredNearOffers = nearOffers.filter((nearOffer) => nearOffer.city.name === currentCity);
+  const newOffers = currentOffer ? [...filteredNearOffers, currentOffer] : [];
 
   return (
     <div className="page">
@@ -197,7 +200,7 @@ function PropertyScreen ({offers}: PropertyScreenProps) : JSX.Element {
             </div>
           </div>
           <section className="property__map map" style={{width: '1144px', marginRight: 'auto', marginLeft: 'auto'}}>
-            <Map city={CITY} offers={newOffers} selectedOffer={currentOffer}/>
+            <Map city={filteredCity[0]} offers={newOffers} selectedOffer={currentOffer}/>
           </section>
         </section>
         <div className="container">
@@ -206,7 +209,7 @@ function PropertyScreen ({offers}: PropertyScreenProps) : JSX.Element {
           Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <OfferList offers={nearOffers} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
+              <OfferList offers={filteredNearOffers} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
             </div>
           </section>
         </div>
