@@ -38,11 +38,11 @@ export const offers: Offer[] = [{
   id: 2,
   city: {
     location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
+      latitude: 48.85612303673775,
+      longitude: 2.3549292541869713,
       zoom: 10,
     },
-    name: 'Amsterdam',
+    name: 'Paris',
   },
   images: ['img/img/apartment-02.jpg', 'img/img/apartment-01.jpg'],
   title: 'A great base for anyone who wants to explore the best tourist attractions',
@@ -63,8 +63,8 @@ export const offers: Offer[] = [{
     name: 'Marcella'
   },
   location: {
-    latitude: 52.3609553943508,
-    longitude: 4.85309666406198,
+    latitude: 48.85435703915003,
+    longitude: 2.3319915568889273,
     zoom: 8,
   }
 },
