@@ -13,7 +13,6 @@ function OfferList ({offers, classnameForCard, classnameForImg, onListItemHover}
     onListItemHover?.(id);
   }
 
-
   return (
     <>
       {offers.map((offer) => <OfferCard offer={offer} key = {offer.id} classNameForCard={classnameForCard} classNameForImg={classnameForImg} changeSetActive={changeSetActive} />)}

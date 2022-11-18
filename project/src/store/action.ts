@@ -3,3 +3,4 @@ import { Offer } from '../types/offer';
 
 export const changeCity = createAction<string>('offers/changeCity');
 export const setOffers = createAction<Offer[]>('offers/setOffers');
+export const changeSort = createAction<string>('offers/changeSort');
