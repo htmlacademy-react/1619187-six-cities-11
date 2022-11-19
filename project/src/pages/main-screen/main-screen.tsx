@@ -1,7 +1,7 @@
 //в странички будем импортировать более мелкие компоненты из components, например, хедер, футер, карточки и тд
 //сами стр потом импортируем в app
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import {offers} from '../../mocks/offers';
@@ -22,10 +22,11 @@ function MainScreen () : JSX.Element {
 
   useEffect(() => {
     dispatch(setOffers(offers));
-  }, [dispatch]);
+  }, [dispatch, offers]);
 
-  const filteredOffers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
+  const offersFromStore = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
+  const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const currentSort = useAppSelector((state) => state.sort);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const onListItemHover = (listItemId: number) => {
