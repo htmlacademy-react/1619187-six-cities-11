@@ -10,7 +10,7 @@ export const offers: Offer[] = [{
     },
     name: 'Amsterdam',
   },
-  images: ['img/img/apartment-02.jpg', 'img/img/apartment-01.jpg', 'img/img/apartment-03.jpg'],
+  images: ['img/apartment-02.jpg', 'img/apartment-01.jpg', 'img/apartment-03.jpg'],
   title: 'Beautiful & luxurious studio at great location',
   description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   isFavorite: true,
@@ -24,7 +24,7 @@ export const offers: Offer[] = [{
   previewImage: 'img/apartment-01.jpg',
   hostInformation: {
     id: 3,
-    avatarUrl: 'img/1.png',
+    avatarUrl: 'img/avatar-angelina.jpg',
     isPro: true,
     name: 'Angelina'
   },
@@ -44,7 +44,7 @@ export const offers: Offer[] = [{
     },
     name: 'Paris',
   },
-  images: ['img/img/apartment-02.jpg', 'img/img/apartment-01.jpg'],
+  images: ['img/apartment-02.jpg', 'img/apartment-01.jpg'],
   title: 'A great base for anyone who wants to explore the best tourist attractions',
   description: 'We are within 30 minutes reach from our awesome capital city Amsterdam, the typical Dutch village Zaanse Schans.',
   isFavorite: false,
@@ -58,7 +58,7 @@ export const offers: Offer[] = [{
   previewImage: 'img/apartment-02.jpg',
   hostInformation: {
     id: 1,
-    avatarUrl: 'img/1.png',
+    avatarUrl: 'img/avatar-angelina.jpg',
     isPro: true,
     name: 'Marcella'
   },
@@ -78,7 +78,7 @@ export const offers: Offer[] = [{
     },
     name: 'Amsterdam',
   },
-  images: ['img/img/apartment-03.jpg'],
+  images: ['img/apartment-03.jpg'],
   title: 'Welcome to this stunning 200m2 monumental house!',
   description: 'Enjoy its many windows, the comfortable boxspring beds and bathtub overlooking the canal ;-)',
   isFavorite: true,
@@ -92,7 +92,7 @@ export const offers: Offer[] = [{
   previewImage: 'img/apartment-01.jpg',
   hostInformation: {
     id: 2,
-    avatarUrl: 'img/1.png',
+    avatarUrl: 'img/avatar-angelina.jpg',
     isPro: false,
     name: 'Willie'
   },
@@ -112,7 +112,7 @@ export const offers: Offer[] = [{
     },
     name: 'Amsterdam',
   },
-  images: ['img/img/apartment-02.jpg'],
+  images: ['img/apartment-02.jpg'],
   title: 'Hotel is situated in the hip, up-and-coming neighbourhood of Amsterdam Noord',
   description: 'Our restaurant is the perfect place to hang out, all day long. ',
   isFavorite: false,
@@ -122,11 +122,11 @@ export const offers: Offer[] = [{
   bedrooms: 1,
   maxAdults: 2,
   price: 135,
-  goods: ['Wi-Fi'],
+  goods: ['Wi-Fi', 'Washing machine', 'Kitchen'],
   previewImage: 'img/apartment-03.jpg',
   hostInformation: {
     id: 4,
-    avatarUrl: 'img/1.png',
+    avatarUrl: 'img/avatar-angelina.jpg',
     isPro: false,
     name: 'Bunk'
   },
