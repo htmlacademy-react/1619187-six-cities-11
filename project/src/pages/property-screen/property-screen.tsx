@@ -10,6 +10,7 @@ import Map from '../../components/map/map';
 import {CITIES} from '../../const';
 import {Offer} from '../../types/offer';
 import { useAppSelector } from '../../hooks';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type PropertyScreenProps = {
   offers: Offer[];
@@ -23,6 +24,9 @@ function PropertyScreen ({offers}: PropertyScreenProps) : JSX.Element {
   const filteredNearOffers = nearOffers.filter((nearOffer) => nearOffer.city.name === currentCity);
   const newOffers = currentOffer ? [...filteredNearOffers, currentOffer] : [];
 
+  if (!currentOffer) {
+    return <NotFoundScreen/>;
+  }
   return (
     <div className="page">
       <Helmet>

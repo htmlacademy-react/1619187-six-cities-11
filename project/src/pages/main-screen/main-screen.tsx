@@ -17,6 +17,7 @@ import SortOptions from '../../components/sort-options/sort-options';
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
   const [sortedOffers, setSortedOffer] = useState<Offer[]>([]);
+  const [currentSort, setCurrentSort] = useState<string>('Popular');
 
   const dispatch = useAppDispatch();
 
@@ -27,14 +28,18 @@ function MainScreen () : JSX.Element {
   const offersFromStore = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
   const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
-  const currentSort = useAppSelector((state) => state.sort);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
+
   const onListItemHover = (listItemId: number) => {
     const currentPoint = filteredOffers.find((offer) =>
       offer.id === listItemId,
     );
 
     setSelectedOffer(currentPoint);
+  };
+
+  const changeSetSort = (type: string) => {
+    setCurrentSort(type);
   };
 
   const sortingOffers = (copyOffers: Offer[]) => {
@@ -98,7 +103,7 @@ function MainScreen () : JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{filteredOffers.length} places to stay in {currentCity}</b>
-              <SortOptions sortType={SortType}/>
+              <SortOptions sortType={SortType} currentSort={currentSort} changeSetSort={changeSetSort}/>
               <div className="cities__places-list places__list tabs__content">
                 <OfferList offers={sortedOffers} onListItemHover={onListItemHover} classnameForCard={'cities__card'} classnameForImg={'cities__image-wrapper'}/>
               </div>

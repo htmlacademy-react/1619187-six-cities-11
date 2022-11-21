@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSort } from '../../store/action';
+import {SortType} from '../../const';
 
 type SortOptionsProps = {
-  sortType:
-    {POPULAR: string;
-    PRICELOWTOHIGHT: string;
-    PRICEHIGHTTOLOW: string;
-    RAITING: string;
-    };
+  sortType: typeof SortType;
+    currentSort: string;
+    changeSetSort: (type: string)=> void;
 };
 
-function SortOptions ({sortType}: SortOptionsProps) : JSX.Element {
-  const currentSort = useAppSelector((state) => state.sort);
-  const dispatch = useAppDispatch();
+function SortOptions ({sortType, currentSort, changeSetSort}: SortOptionsProps) : JSX.Element {
   const [activeState, setActiveState] = useState(false);
+
+  const sortClickHandler = (type: string) => () =>{
+    changeSetSort(type);
+  };
 
   const placesOptionsClickHandler = () => {
     setActiveState(!activeState);
@@ -31,7 +29,7 @@ function SortOptions ({sortType}: SortOptionsProps) : JSX.Element {
       </span>
       <ul className={`places__options places__options--custom ${activeState ? 'places__options--opened' : ''}`}>
         {Object.values(sortType).map((type)=>
-          <li className={`places__option ${type === currentSort ? 'places__option--active' : ''}`} tabIndex={0} key={type} onClick={() => dispatch(changeSort(type))}>{type}</li>
+          <li className={`places__option ${type === currentSort ? 'places__option--active' : ''}`} tabIndex={0} key={type} onClick={sortClickHandler(type)}>{type}</li>
         )}
       </ul>
     </form>
