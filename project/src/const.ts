@@ -1,3 +1,5 @@
+import {Offer} from './types/offer';
+
 export enum AppRoute { //перечисление всех маршрутов
   Login = '/login',
   Main = '/',
@@ -42,4 +44,24 @@ export const CITIES = [
     lng: 6.770396652909783,
     zoom: 10
   }];
+
+
+export const SortType = {
+  POPULAR: 'Popular',
+  PRICELOWTOHIGHT: 'Price: low to high',
+  PRICEHIGHTTOLOW: 'Price: high to low',
+  RAITING: 'Top rated first',
+};
+
+export const sortOffersByPrice = (offerA: Offer, offerB: Offer) => {
+  const priceA = offerA.price;
+  const priceB = offerB.price;
+  if (priceA < priceB) {
+    return 1;
+  }
+  if (priceA > priceB) {
+    return -1;
+  }
+  return 0;
+};
 
