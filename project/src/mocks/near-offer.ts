@@ -22,7 +22,7 @@ export const nearOffers: Offer[] = [{
   price: 100,
   goods: ['Washing machine', 'Kitchen'],
   previewImage: 'img/apartment-01.jpg',
-  hostInformation: {
+  host: {
     id: 3,
     avatarUrl: 'img/avatar-angelina.jpg',
     isPro: true,
@@ -56,7 +56,7 @@ export const nearOffers: Offer[] = [{
   price: 620,
   goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Cable TV'],
   previewImage: 'img/apartment-02.jpg',
-  hostInformation: {
+  host: {
     id: 1,
     avatarUrl: 'img/avatar-angelina.jpg',
     isPro: true,
@@ -90,7 +90,7 @@ export const nearOffers: Offer[] = [{
   price: 800,
   goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
   previewImage: 'img/apartment-01.jpg',
-  hostInformation: {
+  host: {
     id: 2,
     avatarUrl: 'img/avatar-angelina.jpg',
     isPro: false,
@@ -124,7 +124,7 @@ export const nearOffers: Offer[] = [{
   price: 800,
   goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
   previewImage: 'img/apartment-01.jpg',
-  hostInformation: {
+  host: {
     id: 2,
     avatarUrl: 'img/avatar-angelina.jpg',
     isPro: false,
@@ -158,7 +158,7 @@ export const nearOffers: Offer[] = [{
   price: 800,
   goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
   previewImage: 'img/apartment-01.jpg',
-  hostInformation: {
+  host: {
     id: 2,
     avatarUrl: 'img/avatar-angelina.jpg',
     isPro: false,
@@ -192,7 +192,7 @@ export const nearOffers: Offer[] = [{
   price: 800,
   goods: ['Wi-Fi', 'Washing machine', 'Kitchen', 'Heating', 'Air conditioner'],
   previewImage: 'img/apartment-01.jpg',
-  hostInformation: {
+  host: {
     id: 2,
     avatarUrl: 'img/avatar-angelina.jpg',
     isPro: false,

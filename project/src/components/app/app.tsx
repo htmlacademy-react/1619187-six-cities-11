@@ -2,7 +2,7 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {HelmetProvider} from 'react-helmet-async'; //позволяет работать с хедером. Например, задавать title
-
+import {useAppSelector} from '../../hooks';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -10,13 +10,18 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavouritePrivateRoute from '../favourite-private-route/favourite-private-route';
 import LoginPrivateRoute from '../login-private-route/login-private-route';
-import {Offer} from '../../types/offer';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
-type AppScreenProps = {
-  offers: Offer[];
-}
+function App(): JSX.Element { //принимает массив моковых данных из индекс
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-function App({offers}: AppScreenProps): JSX.Element { //принимает массив моковых данных из индекс
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -28,7 +33,7 @@ function App({offers}: AppScreenProps): JSX.Element { //принимает ма�
           <Route
             path={AppRoute.Login}
             element={
-              <LoginPrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <LoginPrivateRoute authorizationStatus={authorizationStatus}>
                 <LoginScreen />
               </LoginPrivateRoute>
             }
@@ -36,14 +41,14 @@ function App({offers}: AppScreenProps): JSX.Element { //принимает ма�
           <Route
             path={AppRoute.Favorites}
             element={
-              <FavouritePrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <FavoritesScreen offers={offers}/>
+              <FavouritePrivateRoute authorizationStatus={authorizationStatus}>
+                <FavoritesScreen/>
               </FavouritePrivateRoute>
             }
           />
           <Route
             path={`${AppRoute.Room}/:id`}
-            element={<PropertyScreen offers={offers}/>}
+            element={<PropertyScreen/>}
           />
           <Route
             path="*"

@@ -4,26 +4,18 @@
 import { useEffect, useMemo, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
-import {offers} from '../../mocks/offers';
 import {CITIES, SortType, sortOffersByPrice} from '../../const';
 import OfferList from '../../components/offer-list/offer-list';
 import {Link} from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import CitiesList from '../../components/cities-list/cities-list';
-import { setOffers } from '../../store/action';
-import {useAppDispatch, useAppSelector} from '../../hooks/index';
+import { useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
   const [sortedOffers, setSortedOffer] = useState<Offer[]>([]);
   const [currentSort, setCurrentSort] = useState<string>('Popular');
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(setOffers(offers));
-  }, [dispatch, offers]);
 
   const offersFromStore = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);

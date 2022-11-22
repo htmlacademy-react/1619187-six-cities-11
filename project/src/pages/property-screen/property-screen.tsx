@@ -8,17 +8,14 @@ import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {CITIES} from '../../const';
-import {Offer} from '../../types/offer';
 import { useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-type PropertyScreenProps = {
-  offers: Offer[];
-}
 
-function PropertyScreen ({offers}: PropertyScreenProps) : JSX.Element {
+function PropertyScreen () : JSX.Element {
+  const offersFromStore = useAppSelector((state) => state.offers);
   const params = useParams();
-  const currentOffer = offers.find((offer) => params.id === String(offer.id)); //оффер который отображается в property-screen
+  const currentOffer = offersFromStore.find((offer) => params.id === String(offer.id)); //оффер который отображается в property-screen
   const currentCity = useAppSelector((state) => state.city);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const filteredNearOffers = nearOffers.filter((nearOffer) => nearOffer.city.name === currentCity);
@@ -128,14 +125,14 @@ function PropertyScreen ({offers}: PropertyScreenProps) : JSX.Element {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src={currentOffer?.hostInformation.avatarUrl}
+                      src={currentOffer?.host.avatarUrl}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="property__user-name">{currentOffer?.hostInformation.name}</span>
-                  {currentOffer?.hostInformation.isPro &&
+                  <span className="property__user-name">{currentOffer?.host.name}</span>
+                  {currentOffer?.host.isPro &&
                     <span className="property__user-status"> Pro </span>}
                 </div>
                 <div className="property__description">
