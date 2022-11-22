@@ -7,6 +7,12 @@ export enum AppRoute { //перечисление всех маршрутов
   Room = '/offer',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export enum AuthorizationStatus { //перечисление вариантов авторизации
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
