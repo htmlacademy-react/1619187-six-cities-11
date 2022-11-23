@@ -2,10 +2,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import {offers} from './mocks/offers';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import {checkAuthAction, fetchOffersAction} from './store/api-actions';
+import ErrorMessage from './components/error-message/error-message';
 
+store.dispatch(fetchOffersAction());
+store.dispatch(checkAuthAction()); //проверка статуса авторизации пользователя
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,9 +18,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        offers = {offers}
-      />
+      <ErrorMessage/>
+      <App/>
     </Provider>
   </React.StrictMode>
 );

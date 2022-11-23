@@ -7,6 +7,14 @@ export enum AppRoute { //перечисление всех маршрутов
   Room = '/offer',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const TIMEOUT_SHOW_ERROR = 3000;
+
 export enum AuthorizationStatus { //перечисление вариантов авторизации
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

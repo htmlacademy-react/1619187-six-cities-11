@@ -25,7 +25,7 @@ export type Offer = {
   maxAdults: number;
   price: number;
   goods: string[];
-  hostInformation: Host;
+  host: Host;
   isFavorite: boolean;
   isPremium: boolean;
   previewImage: string;

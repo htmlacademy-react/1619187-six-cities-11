@@ -1,14 +1,12 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import {Offer} from '../../types/offer';
 import FavouriteOfferCard from '../../components/favourite-offers-card/favourite-offers-card';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 
-type OfferListProps = {
-  offers: Offer[];
-}
-function FavoritesScreen ({offers}:OfferListProps) : JSX.Element {
-  const filterOffers = offers.filter((offer) => offer.isFavorite === true);
+function FavoritesScreen () : JSX.Element {
+  const offersFromStore = useAppSelector((state) => state.offers);
+  const filterOffers = offersFromStore.filter((offer) => offer.isFavorite === true);
   const filterOffer = filterOffers.map((offer) => <FavouriteOfferCard offer={offer} key = {offer.id}/>);
   return (
     <div className="page">
@@ -32,7 +30,7 @@ function FavoritesScreen ({offers}:OfferListProps) : JSX.Element {
                     <span className="header__user-name user__name">
                   Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{filterOffer.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
