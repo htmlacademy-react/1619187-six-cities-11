@@ -76,7 +76,7 @@ function PropertyScreen () : JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {currentOffer?.images.map((image)=>
+              {currentOffer.images.map((image)=>
                 (
                   <div className="property__image-wrapper" key={image}>
                     <img
@@ -89,15 +89,15 @@ function PropertyScreen () : JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {currentOffer?.isPremium &&
+              {currentOffer.isPremium &&
                 <div className="property__mark">
                   <span>Premium</span>
                 </div> }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {currentOffer?.title}
+                  {currentOffer.title}
                 </h1>
-                <button className={`property__bookmark-button button ${currentOffer?.isFavorite ? 'property__bookmark-button--active' : '' }`} type="button">
+                <button className={`property__bookmark-button button ${currentOffer.isFavorite ? 'property__bookmark-button--active' : '' }`} type="button">
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -106,30 +106,30 @@ function PropertyScreen () : JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${100 / 5 * Math.round(Number(currentOffer?.rating))}%`}} />
+                  <span style={{width: `${100 / 5 * Math.round(Number(currentOffer.rating))}%`}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{currentOffer?.rating}</span>
+                <span className="property__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {currentOffer?.type}
+                  {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {currentOffer?.bedrooms}
+                  {currentOffer.bedrooms}
                 </li>
                 <li className="property__feature property__feature--adults">
-                    Max {currentOffer?.maxAdults} adults
+                    Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">€{currentOffer?.price}</b>
+                <b className="property__price-value">€{currentOffer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {currentOffer?.goods.map((good)=> <li className="property__inside-item" key={good}>{good}</li>)}
+                  {currentOffer.goods.map((good)=> <li className="property__inside-item" key={good}>{good}</li>)}
                 </ul>
               </div>
               <div className="property__host">
@@ -138,19 +138,19 @@ function PropertyScreen () : JSX.Element {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src={currentOffer?.host.avatarUrl}
+                      src={currentOffer.host.avatarUrl}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="property__user-name">{currentOffer?.host.name}</span>
-                  {currentOffer?.host.isPro &&
+                  <span className="property__user-name">{currentOffer.host.name}</span>
+                  {currentOffer.host.isPro &&
                     <span className="property__user-status"> Pro </span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {currentOffer?.description}
+                    {currentOffer.description}
                   </p>
                 </div>
               </div>

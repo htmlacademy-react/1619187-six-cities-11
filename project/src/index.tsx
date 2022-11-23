@@ -5,7 +5,7 @@ import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {checkAuthAction, fetchOffersAction} from './store/api-actions';
-import ErrorMessage from './components/error-message/error-message';
+import {ToastContainer} from 'react-toastify';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction()); //проверка статуса авторизации пользователя
@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorMessage/>
+      <ToastContainer/>
       <App/>
     </Provider>
   </React.StrictMode>
