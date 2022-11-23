@@ -2,12 +2,18 @@ import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import FavouriteOfferCard from '../../components/favourite-offers-card/favourite-offers-card';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
+import { logoutAction } from '../../store/api-actions';
 
 function FavoritesScreen () : JSX.Element {
   const offersFromStore = useAppSelector((state) => state.offers);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const filterOffers = offersFromStore.filter((offer) => offer.isFavorite === true);
   const filterOffer = filterOffers.map((offer) => <FavouriteOfferCard offer={offer} key = {offer.id}/>);
+
+  const dispatch = useAppDispatch();
+
   return (
     <div className="page">
       <Helmet>
@@ -27,16 +33,25 @@ function FavoritesScreen () : JSX.Element {
                     to={'/favorites'}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                  Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">{filterOffer.length}</span>
+                    {authorizationStatus === AuthorizationStatus.Auth &&
+                    <>
+                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__favorite-count">{filterOffer.length}</span>
+                    </>}
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to={'/'}>
-                    <span className="header__signout">Sign out</span>
-                  </Link>
+                  {authorizationStatus === AuthorizationStatus.Auth ?
+                    <Link className="header__nav-link" to={'/'} onClick={(evt) => {
+                      evt.preventDefault();
+                      dispatch(logoutAction());
+                    }}
+                    >
+                      <span className="header__signout">Sign out</span>
+                    </Link> :
+                    <Link className="header__nav-link" to={'/login'}>
+                      <span className="header__signout">Sign in</span>
+                    </Link>}
                 </li>
               </ul>
             </nav>

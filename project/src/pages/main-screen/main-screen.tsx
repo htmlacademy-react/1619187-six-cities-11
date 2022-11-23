@@ -9,8 +9,10 @@ import OfferList from '../../components/offer-list/offer-list';
 import {Link} from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import CitiesList from '../../components/cities-list/cities-list';
-import { useAppSelector} from '../../hooks/index';
+import { useAppDispatch, useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
+import {logoutAction} from '../../store/api-actions';
+import {AuthorizationStatus} from '../../const';
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
@@ -21,6 +23,9 @@ function MainScreen () : JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
   const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  const dispatch = useAppDispatch();
 
   const onListItemHover = (listItemId: number) => {
     const currentPoint = filteredOffers.find((offer) =>
@@ -67,14 +72,25 @@ function MainScreen () : JSX.Element {
                   <Link className="header__nav-link header__nav-link--profile" to={'/favorites'}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    {authorizationStatus === AuthorizationStatus.Auth &&
+                    <>
+                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__favorite-count">3</span>
+                    </>}
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to={'/'}>
-                    <span className="header__signout">Sign out</span>
-                  </Link>
+                  {authorizationStatus === AuthorizationStatus.Auth ?
+                    <Link className="header__nav-link" to={'/'} onClick={(evt) => {
+                      evt.preventDefault();
+                      dispatch(logoutAction());
+                    }}
+                    >
+                      <span className="header__signout">Sign out</span>
+                    </Link> :
+                    <Link className="header__nav-link" to={'/login'}>
+                      <span className="header__signout">Sign in</span>
+                    </Link>}
                 </li>
               </ul>
             </nav>

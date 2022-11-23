@@ -7,19 +7,23 @@ import {nearOffers} from '../../mocks/near-offer';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import {CITIES} from '../../const';
-import { useAppSelector } from '../../hooks';
+import {AuthorizationStatus, CITIES} from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { logoutAction } from '../../store/api-actions';
 
 
 function PropertyScreen () : JSX.Element {
   const offersFromStore = useAppSelector((state) => state.offers);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const currentCity = useAppSelector((state) => state.city);
   const params = useParams();
   const currentOffer = offersFromStore.find((offer) => params.id === String(offer.id)); //оффер который отображается в property-screen
-  const currentCity = useAppSelector((state) => state.city);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const filteredNearOffers = nearOffers.filter((nearOffer) => nearOffer.city.name === currentCity);
   const newOffers = currentOffer ? [...filteredNearOffers, currentOffer] : [];
+
+  const dispatch = useAppDispatch();
 
   if (!currentOffer) {
     return <NotFoundScreen/>;
@@ -43,16 +47,25 @@ function PropertyScreen () : JSX.Element {
                     to={'/favorites'}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__reviews__listname">
-                  Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
+                    {authorizationStatus === AuthorizationStatus.Auth &&
+                    <>
+                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__favorite-count">3</span>
+                    </>}
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to={'/'}>
-                    <span className="header__signout">Sign out</span>
-                  </Link>
+                  {authorizationStatus === AuthorizationStatus.Auth ?
+                    <Link className="header__nav-link" to={'/'} onClick={(evt) => {
+                      evt.preventDefault();
+                      dispatch(logoutAction());
+                    }}
+                    >
+                      <span className="header__signout">Sign out</span>
+                    </Link> :
+                    <Link className="header__nav-link" to={'/login'}>
+                      <span className="header__signout">Sign in</span>
+                    </Link>}
                 </li>
               </ul>
             </nav>
