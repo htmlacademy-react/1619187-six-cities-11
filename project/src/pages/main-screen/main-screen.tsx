@@ -6,13 +6,11 @@ import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import {CITIES, SortType, sortOffersByPrice} from '../../const';
 import OfferList from '../../components/offer-list/offer-list';
-import {Link} from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import CitiesList from '../../components/cities-list/cities-list';
-import { useAppDispatch, useAppSelector} from '../../hooks/index';
+import {useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
-import {logoutAction} from '../../store/api-actions';
-import {AuthorizationStatus} from '../../const';
+import UserInfo from '../../components/user-info/user-info';
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
@@ -23,9 +21,6 @@ function MainScreen () : JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
   const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
-  const dispatch = useAppDispatch();
 
   const onListItemHover = (listItemId: number) => {
     const currentPoint = filteredOffers.find((offer) =>
@@ -68,30 +63,7 @@ function MainScreen () : JSX.Element {
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={'/favorites'}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    {authorizationStatus === AuthorizationStatus.Auth &&
-                    <>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">3</span>
-                    </>}
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  {authorizationStatus === AuthorizationStatus.Auth ?
-                    <Link className="header__nav-link" to={'/'} onClick={(evt) => {
-                      evt.preventDefault();
-                      dispatch(logoutAction());
-                    }}
-                    >
-                      <span className="header__signout">Sign out</span>
-                    </Link> :
-                    <Link className="header__nav-link" to={'/login'}>
-                      <span className="header__signout">Sign in</span>
-                    </Link>}
-                </li>
+                <UserInfo/>
               </ul>
             </nav>
           </div>
