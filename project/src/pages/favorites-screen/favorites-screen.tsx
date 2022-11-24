@@ -1,13 +1,14 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import FavouriteOfferCard from '../../components/favourite-offers-card/favourite-offers-card';
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import {useAppSelector } from '../../hooks';
+import UserInfo from '../../components/user-info/user-info';
 
 function FavoritesScreen () : JSX.Element {
   const offersFromStore = useAppSelector((state) => state.offers);
   const filterOffers = offersFromStore.filter((offer) => offer.isFavorite === true);
   const filterOffer = filterOffers.map((offer) => <FavouriteOfferCard offer={offer} key = {offer.id}/>);
+
   return (
     <div className="page">
       <Helmet>
@@ -21,23 +22,7 @@ function FavoritesScreen () : JSX.Element {
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link
-                    className="header__nav-link header__nav-link--profile"
-                    to={'/favorites'}
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                  Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">{filterOffer.length}</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to={'/'}>
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
+                <UserInfo/>
               </ul>
             </nav>
           </div>

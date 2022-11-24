@@ -3,7 +3,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 
 //этим компонентом будем оборачивать приватные маршруты (которые доступны после авторизации)
 type PrivateRouteProps = {
-  authorizationStatus: string;
+  authorizationStatus: AuthorizationStatus;
   children: JSX.Element; //компонент, который будет отрисовываться, если мы авторизованы
 }
 

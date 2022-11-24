@@ -12,7 +12,7 @@ import FavouritePrivateRoute from '../favourite-private-route/favourite-private-
 import LoginPrivateRoute from '../login-private-route/login-private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
-function App(): JSX.Element { //принимает массив моковых данных из индекс
+function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 

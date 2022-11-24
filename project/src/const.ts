@@ -13,8 +13,6 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-export const TIMEOUT_SHOW_ERROR = 3000;
-
 export enum AuthorizationStatus { //перечисление вариантов авторизации
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
