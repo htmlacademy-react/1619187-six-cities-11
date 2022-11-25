@@ -15,8 +15,9 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isNearOffersDataLoading = useAppSelector((state) => state.isNearOffersDataLoading);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading || isNearOffersDataLoading) {
     return (
       <LoadingScreen />
     );
