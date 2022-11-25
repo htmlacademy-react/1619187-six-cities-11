@@ -12,6 +12,7 @@ import UserInfo from '../../components/user-info/user-info';
 import { store } from '../../store';
 import { fetchNearOffersAction, fetchReviews} from '../../store/api-actions';
 import { useEffect } from 'react';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function PropertyScreen () : JSX.Element {
   const offersFromStore = useAppSelector((state) => state.offers);
@@ -19,24 +20,34 @@ function PropertyScreen () : JSX.Element {
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const reviews = useAppSelector((state) => state.reviews);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const params = useParams();
-  const currentOffer = offersFromStore.find((offer) => params.id === String(offer.id)); //оффер который отображается в property-screen
+  const {id} = useParams();
+  const currentOffer = offersFromStore.find((offer) => id === String(offer.id)); //оффер который отображается в property-screen
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const newOffers = currentOffer && nearOffers !== null ? [...nearOffers, currentOffer] : [];
 
-
   useEffect(() => {
-    if (nearOffers.length === 0) {
-      if (params.id && currentOffer !== undefined) {
-        store.dispatch(fetchNearOffersAction({hotelId: params.id}));
-        store.dispatch(fetchReviews({hotelId: params.id}));
-      }
+    if (id) {
+      store.dispatch(fetchNearOffersAction({hotelId: id}));
     }
-  }, [params.id]);
+    if (id) {
+      store.dispatch(fetchReviews({hotelId: id}));
+    }
+  }, [id]);
+
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isNearOffersDataLoading = useAppSelector((state) => state.isNearOffersDataLoading);
+
+  if (isOffersDataLoading || isNearOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
 
   if (!currentOffer) {
     return <NotFoundScreen/>;
   }
+
   return (
     <div className="page">
       <Helmet>
@@ -140,10 +151,10 @@ function PropertyScreen () : JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-              Reviews · <span className="reviews__amount">{reviews.length}</span>
+              Reviews · <span className="reviews__amount">{reviews?.length}</span>
                 </h2>
                 <ul className="reviews__list">
-                  <ReviewList reviews={reviews}/>
+                  <ReviewList reviews={reviews ?? []}/>
                 </ul>
                 {authorizationStatus === AuthorizationStatus.Auth && <CommentForm/>}
               </section>
@@ -159,7 +170,7 @@ function PropertyScreen () : JSX.Element {
           Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <OfferList offers={nearOffers} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
+              <OfferList offers={nearOffers ?? []} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
             </div>
           </section>
         </div>

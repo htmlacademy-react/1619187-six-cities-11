@@ -7,8 +7,8 @@ import { Review } from '../types/review';
 type initialStateProps = {
   city: string;
   offers: Offer[];
-  nearOffers: Offer[];
-  reviews: Review[];
+  nearOffers: Offer[] | null;
+  reviews: Review[] | null;
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
   isNearOffersDataLoading: boolean;
@@ -18,8 +18,8 @@ type initialStateProps = {
 const initialState: initialStateProps = {
   city: 'Paris',
   offers: [],
-  nearOffers: [],
-  reviews: [],
+  nearOffers: null,
+  reviews: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
   isNearOffersDataLoading: false,

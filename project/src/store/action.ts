@@ -5,8 +5,8 @@ import { Review } from '../types/review';
 
 export const changeCity = createAction<string>('offers/changeCity');
 export const setOffers = createAction<Offer[]>('data/setOffers');
-export const setNearOffers = createAction<Offer[]>('data/setNearOffers');
-export const setReviews = createAction<Review[]>('data/setReviews');
+export const setNearOffers = createAction<Offer[] | null>('data/setNearOffers');
+export const setReviews = createAction<Review[] | null>('data/setReviews');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 export const setNearOffersDataLoadingStatus = createAction<boolean>('data/setNearOffersDataLoadingStatus');
