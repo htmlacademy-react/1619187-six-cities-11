@@ -156,7 +156,7 @@ function PropertyScreen () : JSX.Element {
                 <ul className="reviews__list">
                   <ReviewList reviews={reviews ?? []}/>
                 </ul>
-                {authorizationStatus === AuthorizationStatus.Auth && <CommentForm/>}
+                {authorizationStatus === AuthorizationStatus.Auth && <CommentForm hotelId={id}/>}
               </section>
             </div>
           </div>

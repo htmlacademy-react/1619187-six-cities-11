@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { addReviewAction } from '../../store/api-actions';
 
-function CommentForm () : JSX.Element {
+
+function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
 
   const [formData, setFormData] = React.useState('');
   const [rating, setRating] = React.useState(0);
@@ -15,9 +18,18 @@ function CommentForm () : JSX.Element {
 
     setRating(Number(target.value));
   };
+  const dispatch = useAppDispatch();
+  const onSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    if (hotelId) {
+      dispatch(addReviewAction({comment: formData,
+        hotelId,
+        rating}));
+    }
+  }; //обработчик для отправки формы комментария
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={onSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
     Your review
       </label>
@@ -119,6 +131,8 @@ function CommentForm () : JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        minLength={50}
+        maxLength={140}
         onChange={fieldChangeHandler}
         value={formData}
       />
@@ -131,7 +145,6 @@ function CommentForm () : JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
         >
       Submit
         </button>

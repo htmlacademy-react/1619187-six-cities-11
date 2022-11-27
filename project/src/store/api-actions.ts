@@ -8,6 +8,8 @@ import {APIRoute, AuthorizationStatus} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { Review } from '../types/review.js';
+import { ReviewData } from '../types/review-data.js';
+import { newReviewData } from '../types/new-review-data.js';
 
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, { //загрузка списка офферов
@@ -48,6 +50,18 @@ export const fetchReviews = createAsyncThunk<void, {hotelId: string}, { //заг
     dispatch(setReviewsDataLoadingStatus(true));
     const {data} = await api.get<Review[]>(APIRoute.Reviews.replace('{hotelId}', hotelId));
     dispatch(setReviewsDataLoadingStatus(false));
+    dispatch(setReviews(data));
+  },
+);
+
+export const addReviewAction = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/review',
+  async ({comment, rating, hotelId}, {dispatch, extra: api}) => {
+    const {data} = await api.post<newReviewData[]>(APIRoute.Reviews.replace('{hotelId}', String(hotelId)), {comment, rating});
     dispatch(setReviews(data));
   },
 );
