@@ -4,7 +4,7 @@ import { Offer } from '../types/offer';
 import {AuthorizationStatus} from '../const';
 import { Review } from '../types/review';
 
-type initialStateProps = {
+type InitialStateProps = {
   city: string;
   offers: Offer[];
   nearOffers: Offer[] | null;
@@ -15,7 +15,7 @@ type initialStateProps = {
   isReviewsDataLoading: boolean;
 }
 
-const initialState: initialStateProps = {
+const initialState: InitialStateProps = {
   city: 'Paris',
   offers: [],
   nearOffers: null,

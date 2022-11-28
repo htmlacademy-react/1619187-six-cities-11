@@ -1,24 +1,28 @@
 import React, { FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
+import {TextLength, Rating} from '../../const';
 
 const checkCommentValidityLength = (text: string) => {
-  if (text.length < 50 || text.length > 300) {
+  if (text.length < TextLength.minLength || text.length > TextLength.maxLength) {
     return false;
-  } else
-  {return true;}
+  }
+
+  return true;
 };
 const checkRating = (rating: number) => {
-  if (rating > 1 && rating <= 5) {
+  if (rating > Rating.minRating && rating <= Rating.maxRating) {
     return true;
-  } else {return false;}
+  }
+
+  return false;
 };
 
 function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
 
   const [formData, setFormData] = React.useState('');
   const [rating, setRating] = React.useState(0);
-
+  //const {register} = useForm();
   const isButtonDisablet = !checkCommentValidityLength(formData) || !checkRating(rating);
 
   //что бы записать значение из полей формы в состояние нужен обработчик
@@ -32,7 +36,7 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
     setRating(Number(target.value));
   };
   const dispatch = useAppDispatch();
-  const onSubmitHandler = (evt: FormEvent) => {
+  const SubmitHandler = (evt: FormEvent) => {
     evt.preventDefault();
     if (hotelId) {
       dispatch(addReviewAction({comment: formData,
@@ -42,9 +46,9 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
   }; //обработчик для отправки формы комментария
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitHandler}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={SubmitHandler}>
       <label className="reviews__label form__label" htmlFor="review">
-    Your review
+          Your review
       </label>
       <div className="reviews__rating-form form__rating">
         <input
@@ -148,24 +152,24 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
         maxLength={300}
         onChange={fieldChangeHandler}
         value={formData}
+        //ref={register}
         required
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-      To submit review please make sure to set{' '}
+            To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe your stay with
-      at least <b className="reviews__text-amount">50 characters</b>.
+            at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
           disabled={isButtonDisablet}
         >
-      Submit
+            Submit
         </button>
       </div>
     </form>
-  );
-}
+  );}
 
 export default CommentForm;

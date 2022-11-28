@@ -1,6 +1,5 @@
 import {Review} from '../../types/review';
 import dayjs from 'dayjs';
-dayjs().format();
 
 type ReviewProps = {
   review: Review;

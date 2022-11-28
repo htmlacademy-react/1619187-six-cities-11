@@ -28,8 +28,6 @@ function PropertyScreen () : JSX.Element {
   useEffect(() => {
     if (id) {
       store.dispatch(fetchNearOffersAction({hotelId: id}));
-    }
-    if (id) {
       store.dispatch(fetchReviews({hotelId: id}));
     }
   }, [id]);
