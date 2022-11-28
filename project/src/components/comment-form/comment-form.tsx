@@ -2,11 +2,24 @@ import React, { FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 
+const checkCommentValidityLength = (text: string) => {
+  if (text.length < 50 || text.length > 300) {
+    return false;
+  } else
+  {return true;}
+};
+const checkRating = (rating: number) => {
+  if (rating > 1 && rating <= 5) {
+    return true;
+  } else {return false;}
+};
 
 function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
 
   const [formData, setFormData] = React.useState('');
   const [rating, setRating] = React.useState(0);
+
+  const isButtonDisablet = !checkCommentValidityLength(formData) || !checkRating(rating);
 
   //что бы записать значение из полей формы в состояние нужен обработчик
   const fieldChangeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,7 +32,7 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
     setRating(Number(target.value));
   };
   const dispatch = useAppDispatch();
-  const onSubmit = (evt: FormEvent) => {
+  const onSubmitHandler = (evt: FormEvent) => {
     evt.preventDefault();
     if (hotelId) {
       dispatch(addReviewAction({comment: formData,
@@ -29,7 +42,7 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
   }; //обработчик для отправки формы комментария
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={onSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitHandler}>
       <label className="reviews__label form__label" htmlFor="review">
     Your review
       </label>
@@ -132,9 +145,10 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={50}
-        maxLength={140}
+        maxLength={300}
         onChange={fieldChangeHandler}
         value={formData}
+        required
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -145,6 +159,7 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
+          disabled={isButtonDisablet}
         >
       Submit
         </button>
