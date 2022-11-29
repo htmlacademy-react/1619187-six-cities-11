@@ -1,36 +1,39 @@
-import React from 'react';
+import { useAppDispatch } from '../../hooks';
+import { addReviewAction } from '../../store/api-actions';
+import {TextLength} from '../../const';
+import {useForm, type SubmitHandler} from 'react-hook-form';
 
-function CommentForm () : JSX.Element {
+type Inputs = {
+  review: string;
+  rating: string;
+};
 
-  const [formData, setFormData] = React.useState('');
-  const [rating, setRating] = React.useState(0);
+function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
+  const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<Inputs>({mode: 'all'});
+  const dispatch = useAppDispatch();
+  const submitHandler: SubmitHandler<Inputs> = async (data) => {
+    if (hotelId) {
+      await dispatch(addReviewAction({comment: data.review,
+        hotelId,
+        rating: Number(data.rating)}));
 
-  //что бы записать значение из полей формы в состояние нужен обработчик
-  const fieldChangeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData(evt.target.value);
-  };
-
-  const inputClickHandler = (evt: React.MouseEvent<HTMLInputElement> ) => {
-    const target = evt.target as unknown as HTMLInputElement;
-
-    setRating(Number(target.value));
-  };
+      reset();
+    }
+  }; //обработчик для отправки формы комментария
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit(submitHandler)}>
       <label className="reviews__label form__label" htmlFor="review">
-    Your review
+          Your review
       </label>
       <div className="reviews__rating-form form__rating">
         <input
           className="form__rating-input visually-hidden"
-          name="rating"
-          defaultValue={5}
+          value={5}
           id="5-stars"
           type="radio"
-          defaultChecked={rating === 5}
-          onClick={inputClickHandler}
-
+          {...register('rating', {required: true})}
         />
         <label
           htmlFor="5-stars"
@@ -43,12 +46,10 @@ function CommentForm () : JSX.Element {
         </label>
         <input
           className="form__rating-input visually-hidden"
-          name="rating"
-          defaultValue={4}
+          value={4}
           id="4-stars"
           type="radio"
-          defaultChecked={rating === 4}
-          onClick={inputClickHandler}
+          {...register('rating', {required: true})}
         />
         <label
           htmlFor="4-stars"
@@ -61,12 +62,10 @@ function CommentForm () : JSX.Element {
         </label>
         <input
           className="form__rating-input visually-hidden"
-          name="rating"
-          defaultValue={3}
+          value={3}
           id="3-stars"
           type="radio"
-          defaultChecked={rating === 3}
-          onClick={inputClickHandler}
+          {...register('rating', {required: true})}
         />
         <label
           htmlFor="3-stars"
@@ -79,12 +78,11 @@ function CommentForm () : JSX.Element {
         </label>
         <input
           className="form__rating-input visually-hidden"
-          name="rating"
-          defaultValue={2}
+          value={2}
           id="2-stars"
           type="radio"
-          defaultChecked={rating === 2}
-          onClick={inputClickHandler}
+          {...register('rating', {required: true})}
+
         />
         <label
           htmlFor="2-stars"
@@ -97,12 +95,10 @@ function CommentForm () : JSX.Element {
         </label>
         <input
           className="form__rating-input visually-hidden"
-          name="rating"
-          defaultValue={1}
           id="1-star"
           type="radio"
-          defaultChecked={rating === 1}
-          onClick={inputClickHandler}
+          value={1}
+          {...register('rating', {required: true})}
         />
         <label
           htmlFor="1-star"
@@ -114,30 +110,34 @@ function CommentForm () : JSX.Element {
           </svg>
         </label>
       </div>
+      {errors.rating && errors.rating.type === 'required' && <span>Обязательное поле</span>}
+
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
-        name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={fieldChangeHandler}
-        value={formData}
+        {...register('review', { required: true, minLength: TextLength.minLength, maxLength: TextLength.maxLength, deps: ['rating'] })}
       />
+      {errors.review && errors.review.type === 'required' && <span>Обязательное поле</span>}
+      {errors.review && errors.review.type === 'minLength' && <span>Введите минимум 50 символов</span>}
+      {errors.review && errors.review.type === 'maxLength' && <span>Текст отзыва должен содержать до 300 символов.</span>}
+
+
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-      To submit review please make sure to set{' '}
+            To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe your stay with
-      at least <b className="reviews__text-amount">50 characters</b>.
+            at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={!isValid}
         >
-      Submit
+            Submit
         </button>
       </div>
     </form>
-  );
-}
+  );}
 
 export default CommentForm;

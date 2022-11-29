@@ -11,6 +11,8 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  NearOffers = '/hotels/{hotelId}/nearby',
+  Reviews = '/comments/{hotelId}',
 }
 
 export enum AuthorizationStatus { //перечисление вариантов авторизации
@@ -70,4 +72,14 @@ export const sortOffersByPrice = (offerA: Offer, offerB: Offer) => {
   }
   return 0;
 };
+
+export enum TextLength {
+  minLength = 50,
+  maxLength = 300
+}
+
+export enum Rating {
+  minRating = 1,
+  maxRating = 5
+}
 

@@ -2,28 +2,50 @@ import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
 import {useParams } from 'react-router-dom';
-import {reviews} from '../../mocks/reviews';
-import {nearOffers} from '../../mocks/near-offer';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import {CITIES} from '../../const';
+import {AuthorizationStatus, CITIES} from '../../const';
 import {useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import UserInfo from '../../components/user-info/user-info';
+import { store } from '../../store';
+import { fetchNearOffersAction, fetchReviews} from '../../store/api-actions';
+import { useEffect } from 'react';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function PropertyScreen () : JSX.Element {
   const offersFromStore = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
-  const params = useParams();
-  const currentOffer = offersFromStore.find((offer) => params.id === String(offer.id)); //оффер который отображается в property-screen
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const reviews = useAppSelector((state) => state.reviews);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {id} = useParams();
+  const currentOffer = offersFromStore.find((offer) => id === String(offer.id)); //оффер который отображается в property-screen
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
-  const filteredNearOffers = nearOffers.filter((nearOffer) => nearOffer.city.name === currentCity);
-  const newOffers = currentOffer ? [...filteredNearOffers, currentOffer] : [];
+  const newOffers = currentOffer && nearOffers !== null ? [...nearOffers, currentOffer] : [];
+
+  useEffect(() => {
+    if (id) {
+      store.dispatch(fetchNearOffersAction({hotelId: id}));
+      store.dispatch(fetchReviews({hotelId: id}));
+    }
+  }, [id]);
+
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isNearOffersDataLoading = useAppSelector((state) => state.isNearOffersDataLoading);
+
+  if (isOffersDataLoading || isNearOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
 
   if (!currentOffer) {
     return <NotFoundScreen/>;
   }
+
   return (
     <div className="page">
       <Helmet>
@@ -127,12 +149,12 @@ function PropertyScreen () : JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-              Reviews · <span className="reviews__amount">{reviews.length}</span>
+              Reviews · <span className="reviews__amount">{reviews?.length}</span>
                 </h2>
                 <ul className="reviews__list">
-                  <ReviewList reviews={reviews}/>
+                  <ReviewList reviews={reviews ?? []}/>
                 </ul>
-                <CommentForm/>
+                {authorizationStatus === AuthorizationStatus.Auth && <CommentForm hotelId={id}/>}
               </section>
             </div>
           </div>
@@ -146,7 +168,7 @@ function PropertyScreen () : JSX.Element {
           Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <OfferList offers={filteredNearOffers} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
+              <OfferList offers={nearOffers ?? []} classnameForCard={'near-places__card'} classnameForImg={'near-places__image-wrapper'}/>
             </div>
           </section>
         </div>

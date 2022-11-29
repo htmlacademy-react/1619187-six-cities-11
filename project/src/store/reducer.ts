@@ -1,13 +1,29 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, setOffers, requireAuthorization, setOffersDataLoadingStatus} from './action';
+import {changeCity, setOffers,setNearOffers, requireAuthorization, setOffersDataLoadingStatus, setNearOffersDataLoadingStatus, setReviews, setReviewsDataLoadingStatus} from './action';
 import { Offer } from '../types/offer';
 import {AuthorizationStatus} from '../const';
+import { Review } from '../types/review';
 
-const initialState: {city: string; offers: Offer[]; authorizationStatus: AuthorizationStatus; isOffersDataLoading: boolean} = {
+type InitialStateProps = {
+  city: string;
+  offers: Offer[];
+  nearOffers: Offer[] | null;
+  reviews: Review[] | null;
+  authorizationStatus: AuthorizationStatus;
+  isOffersDataLoading: boolean;
+  isNearOffersDataLoading: boolean;
+  isReviewsDataLoading: boolean;
+}
+
+const initialState: InitialStateProps = {
   city: 'Paris',
   offers: [],
+  nearOffers: null,
+  reviews: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
+  isNearOffersDataLoading: false,
+  isReviewsDataLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -18,8 +34,20 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
     })
+    .addCase(setNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(setReviews, (state, action) => {
+      state.reviews = action.payload;
+    })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setNearOffersDataLoadingStatus, (state, action) => {
+      state.isNearOffersDataLoading = action.payload;
+    })
+    .addCase(setReviewsDataLoadingStatus, (state, action) => {
+      state.isReviewsDataLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
