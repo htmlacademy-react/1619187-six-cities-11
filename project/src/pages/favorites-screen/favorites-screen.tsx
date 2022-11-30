@@ -3,9 +3,10 @@ import {Helmet} from 'react-helmet-async';
 import FavouriteOfferCard from '../../components/favourite-offers-card/favourite-offers-card';
 import {useAppSelector } from '../../hooks';
 import UserInfo from '../../components/user-info/user-info';
+import { getOffers } from '../../store/offers-data/selectors';
 
 function FavoritesScreen () : JSX.Element {
-  const offersFromStore = useAppSelector((state) => state.offers);
+  const offersFromStore = useAppSelector(getOffers);
   const filterOffers = offersFromStore.filter((offer) => offer.isFavorite === true);
   const filterOffer = filterOffers.map((offer) => <FavouriteOfferCard offer={offer} key = {offer.id}/>);
 

@@ -11,14 +11,16 @@ import CitiesList from '../../components/cities-list/cities-list';
 import {useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
 import UserInfo from '../../components/user-info/user-info';
+import { getOffers } from '../../store/offers-data/selectors';
+import { getCity } from '../../store/user-actions/selector';
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
   const [sortedOffers, setSortedOffer] = useState<Offer[]>([]);
   const [currentSort, setCurrentSort] = useState<string>('Popular');
 
-  const offersFromStore = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
+  const offersFromStore = useAppSelector(getOffers);
+  const currentCity = useAppSelector(getCity);
   const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
 

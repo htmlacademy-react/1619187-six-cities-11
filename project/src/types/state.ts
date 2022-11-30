@@ -1,4 +1,23 @@
 import {store} from '../store/index.js';
+import {AuthorizationStatus} from '../const';
+import { Offer } from './offer.js';
+import { Review } from './review.js';
+
+export type UserProcess = {
+  authorizationStatus: AuthorizationStatus;
+};
+export type Data = {
+  offers: Offer[];
+  nearOffers: Offer[];
+  reviews: Review[];
+  isOffersDataLoading: boolean;
+  isNearOffersDataLoading: boolean;
+  isReviewsDataLoading: boolean;
+};
+
+export type UserAction = {
+  city: string;
+}
 
 export type State = ReturnType<typeof store.getState>;
 

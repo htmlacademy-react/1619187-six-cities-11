@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {changeCity} from '../../store/action';
+import { getCity } from '../../store/user-actions/selector';
+import {changeCity} from '../../store/user-actions/user-actions';
 import {City} from '../../types/city';
 
 type CitiesListProps = {
@@ -8,7 +9,7 @@ type CitiesListProps = {
 };
 
 function CitiesList ({cities}: CitiesListProps) : JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
 
 
