@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -39,4 +40,4 @@ function UserInfo(): JSX.Element {
   );
 }
 
-export default UserInfo;
+export default memo(UserInfo);

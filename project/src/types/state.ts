@@ -10,9 +10,11 @@ export type Data = {
   offers: Offer[];
   nearOffers: Offer[];
   reviews: Review[];
+  favoriteOffers: Offer[];
   isOffersDataLoading: boolean;
   isNearOffersDataLoading: boolean;
   isReviewsDataLoading: boolean;
+  isFavoriteOffersDataLoading: boolean;
 };
 
 export type UserAction = {

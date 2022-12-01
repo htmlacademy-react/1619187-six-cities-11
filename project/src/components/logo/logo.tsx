@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import cn from 'classnames';
+import { memo } from 'react';
 
 type LogoStatusProps = {
   logoLinkStatus: boolean;
@@ -14,4 +15,4 @@ function Logo ({logoLinkStatus}: LogoStatusProps): JSX.Element {
   );
 }
 
-export default Logo;
+export default memo(Logo);

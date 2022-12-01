@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import {SortType} from '../../const';
 
 type SortOptionsProps = {
@@ -36,4 +36,4 @@ function SortOptions ({sortType, currentSort, changeSetSort}: SortOptionsProps) 
   );
 }
 
-export default SortOptions;
+export default memo(SortOptions);

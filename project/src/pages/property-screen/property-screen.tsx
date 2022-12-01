@@ -38,15 +38,15 @@ function PropertyScreen () : JSX.Element {
   const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
   const isNearOffersDataLoading = useAppSelector(getNearOffersDataLoadingStatus);
 
+
+  if (!currentOffer) {
+    return <NotFoundScreen/>;
+  }
+
   if (isOffersDataLoading || isNearOffersDataLoading) {
     return (
       <LoadingScreen />
     );
-  }
-
-
-  if (!currentOffer) {
-    return <NotFoundScreen/>;
   }
 
   return (

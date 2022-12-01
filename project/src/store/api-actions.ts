@@ -34,6 +34,17 @@ export const fetchNearOffersAction = createAsyncThunk<Offer[], {hotelId: string}
     return data;
   },
 );
+export const fetchFavoriteOffersAction = createAsyncThunk<Offer[], undefined, { //загрузка списка избранных офферов
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteOffers',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offer[]>(APIRoute.FavoriteOffers); //получаем данные
+    return data;
+  },
+);
 
 export const fetchReviews = createAsyncThunk<Review[], {hotelId: string}, { //загрузка списка отзывов к офферу
   dispatch: AppDispatch;
