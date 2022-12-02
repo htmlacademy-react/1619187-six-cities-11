@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {City} from '../../types/city';
 
@@ -10,9 +10,9 @@ type CityItemProps = {
 
 function CitiesItem ({city, currentCity, clickHandler}: CityItemProps) : JSX.Element {
 
-  const clickCityHandler = () => {
+  const clickCityHandler = useCallback(() => {
     clickHandler(city.title);
-  };
+  }, [city.title, clickHandler]);
 
   return (
     <li className="locations__item" key={city.title}>

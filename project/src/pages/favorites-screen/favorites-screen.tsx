@@ -1,11 +1,11 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import FavouriteOfferCard from '../../components/favourite-offers-card/favourite-offers-card';
 import {useAppSelector } from '../../hooks';
 import UserInfo from '../../components/user-info/user-info';
 import { getFavoriteOffers, getFavoriteOffersDataLoadingStatus} from '../../store/offers-data/selectors';
 import FavoritesEmptyScreen from '../favorites-empty-screen/favorites-empty-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
+import FavoriteOfferCard from '../../components/favorite-offers-card/favorite-offers-card';
 
 function FavoritesScreen () : JSX.Element {
   const favoriteOffersFromStore = useAppSelector(getFavoriteOffers);
@@ -21,8 +21,6 @@ function FavoritesScreen () : JSX.Element {
       <LoadingScreen />
     );
   }
-
-  const filterOffer = favoriteOffersFromStore.map((offer) => <FavouriteOfferCard offer={offer} key = {offer.id}/>);
 
   return (
     <div className="page">
@@ -48,30 +46,19 @@ function FavoritesScreen () : JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
+              {favoriteOffersFromStore.map((favoriteOffer) => (
+                <li className="favorites__locations-items" key={favoriteOffer.id}>
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="/">
+                        <span>{favoriteOffer.city.name}</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {filterOffer}
-                </div>
-              </li>
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Cologne</span>
-                    </a>
+                  <div className="favorites__places">
+                    <FavoriteOfferCard favoriteOffer={favoriteOffer}/>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {filterOffer}
-                </div>
-              </li>
+                </li>))}
             </ul>
           </section>
         </div>

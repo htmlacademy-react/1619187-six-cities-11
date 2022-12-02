@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {Data} from '../../types/state';
-import {fetchOffersAction,fetchNearOffersAction, fetchReviews, addReviewAction, fetchFavoriteOffersAction } from '../api-actions';
+import {fetchOffersAction,fetchNearOffersAction, fetchReviews, addReviewAction, addFavoriteOfferwAction, fetchFavoriteOffersAction } from '../api-actions';
 
 const initialState: Data = {
   offers: [],
@@ -50,6 +50,9 @@ export const OffersData = createSlice({
       })
       .addCase(addReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
+      })
+      .addCase(addFavoriteOfferwAction.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
       });
   }
 });

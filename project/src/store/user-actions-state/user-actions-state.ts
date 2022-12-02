@@ -6,7 +6,7 @@ const initialState: UserAction = {
   city: 'Paris',
 };
 
-export const UserActions = createSlice({
+export const UserActionsState = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
@@ -16,4 +16,4 @@ export const UserActions = createSlice({
   },
 });
 
-export const {changeCity} = UserActions.actions;
+export const {changeCity} = UserActionsState.actions;

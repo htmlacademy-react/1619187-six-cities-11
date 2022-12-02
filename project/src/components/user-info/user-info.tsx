@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { getFavoriteOffers } from '../../store/offers-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function UserInfo(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
+
   const dispatch = useAppDispatch();
   return (
     <>
@@ -19,7 +22,7 @@ function UserInfo(): JSX.Element {
           {authorizationStatus === AuthorizationStatus.Auth &&
                     <>
                       <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoritesOffers.length}</span>
                     </>}
         </Link>
       </li>

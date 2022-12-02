@@ -9,6 +9,7 @@ import {UserData} from '../types/user-data';
 import { Review } from '../types/review.js';
 import { ReviewData } from '../types/review-data.js';
 import { newReviewData } from '../types/new-review-data.js';
+import { FavoriteOfferData } from '../types/favorite-offer-data.js';
 
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, { //загрузка списка офферов
@@ -66,6 +67,18 @@ export const addReviewAction = createAsyncThunk<newReviewData[], ReviewData, {
   'user/review',
   async ({comment, rating, hotelId}, {dispatch, extra: api}) => {
     const {data} = await api.post<newReviewData[]>(APIRoute.Reviews.replace('{hotelId}', String(hotelId)), {comment, rating});
+    return data;
+  },
+);
+
+export const addFavoriteOfferwAction = createAsyncThunk<Offer[], FavoriteOfferData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/favoriteOffer',
+  async ({hotelId, status, isFavorite }, {dispatch, extra: api}) => {
+    const {data} = await api.post<Offer[]>(APIRoute.FavoriteOffer.replace('{hotelId}', String(hotelId)).replace('{status}', String(status)), {isFavorite});
     return data;
   },
 );

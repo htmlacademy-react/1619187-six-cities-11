@@ -11,19 +11,28 @@ import CitiesList from '../../components/cities-list/cities-list';
 import { useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
 import UserInfo from '../../components/user-info/user-info';
-import { getOffers } from '../../store/offers-data/selectors';
-import { getCity } from '../../store/user-actions/selector';
+import { getFavoriteOffers, getOffers } from '../../store/offers-data/selectors';
+import { getCity } from '../../store/user-actions-state/selector';
 import MainEmptyScreen from '../main-empty-screen/main-empty-screen';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { store } from '../../store';
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
   const [sortedOffers, setSortedOffer] = useState<Offer[]>([]);
   const [currentSort, setCurrentSort] = useState<string>('Popular');
-
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
   const offersFromStore = useAppSelector(getOffers);
   const currentCity = useAppSelector(getCity);
   const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
+
+  useEffect(() => {
+    store.dispatch(fetchFavoriteOffersAction());
+  }, [authorizationStatus, favoritesOffers.length]);
+
 
   const onListItemHover = useCallback((listItemId: number) => {
     const currentPoint = filteredOffers.find((offer) =>

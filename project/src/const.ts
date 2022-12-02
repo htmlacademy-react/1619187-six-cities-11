@@ -14,6 +14,7 @@ export enum APIRoute {
   Logout = '/logout',
   NearOffers = '/hotels/{hotelId}/nearby',
   Reviews = '/comments/{hotelId}',
+  FavoriteOffer = '/favorite/{hotelId}/{status}',
 }
 
 export enum AuthorizationStatus { //перечисление вариантов авторизации
