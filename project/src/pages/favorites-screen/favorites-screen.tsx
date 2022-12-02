@@ -21,6 +21,8 @@ function FavoritesScreen () : JSX.Element {
       <LoadingScreen />
     );
   }
+  const favoriteCity = favoriteOffersFromStore.map((favoriteOffer) => favoriteOffer.city.name);
+  const uniqueFavoriteCities = Array.from(new Set(favoriteCity));
 
   return (
     <div className="page">
@@ -46,19 +48,25 @@ function FavoritesScreen () : JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {favoriteOffersFromStore.map((favoriteOffer) => (
-                <li className="favorites__locations-items" key={favoriteOffer.id}>
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="/">
-                        <span>{favoriteOffer.city.name}</span>
-                      </a>
+              {uniqueFavoriteCities.map((uniqueFavoriteCity) =>
+                (
+                  <li className="favorites__locations-items" key={uniqueFavoriteCity}>
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="/">
+                          <span>{uniqueFavoriteCity}</span>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="favorites__places">
-                    <FavoriteOfferCard favoriteOffer={favoriteOffer}/>
-                  </div>
-                </li>))}
+                    <div className="favorites__places">
+                      { favoriteOffersFromStore.map((favoriteOffer) => {
+                        if (favoriteOffer.city.name === uniqueFavoriteCity) {
+                          return <FavoriteOfferCard key={favoriteOffer.id} favoriteOffer={favoriteOffer}/>;
+                        }
+                      })}
+                    </div>
+                  </li>)
+              )}
             </ul>
           </section>
         </div>

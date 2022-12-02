@@ -6,6 +6,7 @@ type FavoriteOfferCardProps = {
 }
 
 function FavoriteOfferCard ({favoriteOffer}: FavoriteOfferCardProps) : JSX.Element {
+
   return (
     <article className="favorites__card place-card">
       {favoriteOffer.isPremium &&
