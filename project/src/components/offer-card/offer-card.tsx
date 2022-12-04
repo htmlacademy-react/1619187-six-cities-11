@@ -2,7 +2,6 @@ import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import { changeFavoriteOfferwAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
-//import { changeFavoriteStatus } from '../../store/offers-data/offers-data';
 
 type OfferCardProps = {
   changeSetActive: (id: number)=> void;

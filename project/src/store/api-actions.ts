@@ -11,7 +11,6 @@ import { ReviewData } from '../types/review-data';
 import { newReviewData } from '../types/new-review-data';
 import { FavoriteOfferData } from '../types/favorite-offer-data';
 import { changeFavoriteStatus } from './offers-data/offers-data';
-//import { OfferFavoriteStatus } from '../types/offer-favorite-status.js';
 
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, { //загрузка списка офферов
@@ -73,15 +72,14 @@ export const addReviewAction = createAsyncThunk<newReviewData[], ReviewData, {
   },
 );
 
-export const changeFavoriteOfferwAction = createAsyncThunk<Offer[], FavoriteOfferData, {
+export const changeFavoriteOfferwAction = createAsyncThunk<Offer, FavoriteOfferData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/favoriteOffer',
   async ({hotelId, status, isFavorite }, {dispatch, extra: api}) => {
-    const {data} = await api.post<Offer[]>(APIRoute.FavoriteOffer.replace('{hotelId}', String(hotelId)).replace('{status}', String(status)), {isFavorite});
-
+    const {data} = await api.post<Offer>(APIRoute.FavoriteOffer.replace('{hotelId}', String(hotelId)).replace('{status}', String(status)), {isFavorite});
     dispatch(changeFavoriteStatus({hotelId, isFavorite}));
     return data;
   },

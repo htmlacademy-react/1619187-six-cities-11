@@ -21,6 +21,7 @@ function FavoritesScreen () : JSX.Element {
       <LoadingScreen />
     );
   }
+
   const favoriteCity = favoriteOffersFromStore.map((favoriteOffer) => favoriteOffer.city.name);
   const uniqueFavoriteCities = Array.from(new Set(favoriteCity));
 
@@ -61,7 +62,7 @@ function FavoritesScreen () : JSX.Element {
                     <div className="favorites__places">
                       { favoriteOffersFromStore.map((favoriteOffer) => {
                         if (favoriteOffer.city.name === uniqueFavoriteCity) {
-                          return <FavoriteOfferCard key={favoriteOffer.id} favoriteOffer={favoriteOffer}/>;
+                          return <FavoriteOfferCard key={favoriteOffer.id} favoriteOfferId = {favoriteOffer.id} favoriteOffer={favoriteOffer}/>;
                         }
                       })}
                     </div>

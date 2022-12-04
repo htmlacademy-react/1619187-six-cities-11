@@ -59,7 +59,14 @@ export const OffersData = createSlice({
         state.reviews = action.payload;
       })
       .addCase(changeFavoriteOfferwAction.fulfilled, (state, action) => {
-        state.favoriteOffers = action.payload;
+        const currentOfferIndex = state.favoriteOffers.findIndex((offer) => offer.id === action.payload.id);
+        if(currentOfferIndex > -1){
+          state.favoriteOffers[currentOfferIndex] = action.payload;
+          state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.isFavorite);
+        } else {
+          state.favoriteOffers.push(action.payload);
+        }
+
       });
   }
 });
