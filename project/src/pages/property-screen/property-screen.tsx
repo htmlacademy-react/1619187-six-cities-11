@@ -14,7 +14,7 @@ import { fetchNearOffersAction, fetchReviews} from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getNearOffers, getNearOffersDataLoadingStatus, getOffers, getOffersDataLoadingStatus, getReviews } from '../../store/offers-data/selectors';
-import { getCity } from '../../store/user-actions-state/selector';
+import { getCity } from '../../store/user-actions/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function PropertyScreen () : JSX.Element {

@@ -17,7 +17,7 @@ export type Data = {
   isFavoriteOffersDataLoading: boolean;
 };
 
-export type UserAction = {
+export type UserActionState = {
   city: string;
 }
 
