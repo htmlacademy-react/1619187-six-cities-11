@@ -9,10 +9,12 @@ export enum AppRoute { //перечисление всех маршрутов
 
 export enum APIRoute {
   Offers = '/hotels',
+  FavoriteOffers = '/favorite',
   Login = '/login',
   Logout = '/logout',
   NearOffers = '/hotels/{hotelId}/nearby',
   Reviews = '/comments/{hotelId}',
+  FavoriteOffer = '/favorite/{hotelId}/{status}',
 }
 
 export enum AuthorizationStatus { //перечисление вариантов авторизации
@@ -74,12 +76,17 @@ export const sortOffersByPrice = (offerA: Offer, offerB: Offer) => {
 };
 
 export enum TextLength {
-  minLength = 50,
-  maxLength = 300
+  Min = 50,
+  Max = 300
 }
 
 export enum Rating {
-  minRating = 1,
-  maxRating = 5
+  Min = 1,
+  Max= 5
 }
-
+//логическое разделение редьюсера на слайсы
+export enum NameSpace {
+  Data = 'DATA',
+  Offers = 'ACTION',
+  User = 'USER',
+}

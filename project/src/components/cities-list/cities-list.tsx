@@ -1,30 +1,26 @@
-import { Link } from 'react-router-dom';
+import { memo, useCallback } from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {changeCity} from '../../store/action';
+import { getCity } from '../../store/user-actions-state/selector';
+import { changeCity } from '../../store/user-actions-state/user-actions-state';
 import {City} from '../../types/city';
+import CitiesItem from '../city-item/city-item';
 
 type CitiesListProps = {
   cities: City[];
 };
 
 function CitiesList ({cities}: CitiesListProps) : JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
+  const currentCity = useAppSelector(getCity);
 
+  const clickHandler = useCallback((cityTitle: string) => {
+    dispatch(changeCity(cityTitle));
+  }, [dispatch]);
 
   return (
     <>
-      {cities.map((city) =>
-        (
-          <li className="locations__item" key={city.title}>
-            <Link className={`locations__item-link tabs__item ${city.title === currentCity ? 'tabs__item--active' : ''}`} to={`#${city.title}`} onClick={() => dispatch(changeCity(city.title))}>
-              <span>{city.title}</span>
-            </Link>
-          </li>)
-      )}
+      {cities.map((city) => <CitiesItem city = {city} currentCity={currentCity} key={city.title} clickHandler={clickHandler}/>)}
     </>
   );
 }
-
-export default CitiesList;
-
+export default memo(CitiesList);

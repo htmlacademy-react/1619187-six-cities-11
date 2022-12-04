@@ -1,13 +1,28 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import FavouriteOfferCard from '../../components/favourite-offers-card/favourite-offers-card';
 import {useAppSelector } from '../../hooks';
 import UserInfo from '../../components/user-info/user-info';
+import { getFavoriteOffers, getFavoriteOffersDataLoadingStatus} from '../../store/offers-data/selectors';
+import FavoritesEmptyScreen from '../favorites-empty-screen/favorites-empty-screen';
+import LoadingScreen from '../loading-screen/loading-screen';
+import FavoriteOfferCard from '../../components/favorite-offers-card/favorite-offers-card';
 
 function FavoritesScreen () : JSX.Element {
-  const offersFromStore = useAppSelector((state) => state.offers);
-  const filterOffers = offersFromStore.filter((offer) => offer.isFavorite === true);
-  const filterOffer = filterOffers.map((offer) => <FavouriteOfferCard offer={offer} key = {offer.id}/>);
+  const favoriteOffersFromStore = useAppSelector(getFavoriteOffers);
+  const isFavoriteOffersDataLoading = useAppSelector(getFavoriteOffersDataLoadingStatus);
+
+
+  if (favoriteOffersFromStore.length === 0) {
+    return (<FavoritesEmptyScreen/>);
+  }
+
+  if (isFavoriteOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+  const favoriteCity = favoriteOffersFromStore.map((favoriteOffer) => favoriteOffer.city.name);
+  const uniqueFavoriteCities = Array.from(new Set(favoriteCity));
 
   return (
     <div className="page">
@@ -33,30 +48,25 @@ function FavoritesScreen () : JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {filterOffer}
-                </div>
-              </li>
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {filterOffer}
-                </div>
-              </li>
+              {uniqueFavoriteCities.map((uniqueFavoriteCity) =>
+                (
+                  <li className="favorites__locations-items" key={uniqueFavoriteCity}>
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="/">
+                          <span>{uniqueFavoriteCity}</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="favorites__places">
+                      { favoriteOffersFromStore.map((favoriteOffer) => {
+                        if (favoriteOffer.city.name === uniqueFavoriteCity) {
+                          return <FavoriteOfferCard key={favoriteOffer.id} favoriteOffer={favoriteOffer}/>;
+                        }
+                      })}
+                    </div>
+                  </li>)
+              )}
             </ul>
           </section>
         </div>

@@ -1,38 +1,50 @@
 //в странички будем импортировать более мелкие компоненты из components, например, хедер, футер, карточки и тд
 //сами стр потом импортируем в app
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import {CITIES, SortType, sortOffersByPrice} from '../../const';
 import OfferList from '../../components/offer-list/offer-list';
 import { Offer } from '../../types/offer';
 import CitiesList from '../../components/cities-list/cities-list';
-import {useAppSelector} from '../../hooks/index';
+import { useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
 import UserInfo from '../../components/user-info/user-info';
+import { getFavoriteOffers, getOffers } from '../../store/offers-data/selectors';
+import { getCity } from '../../store/user-actions-state/selector';
+import MainEmptyScreen from '../main-empty-screen/main-empty-screen';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { store } from '../../store';
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
   const [sortedOffers, setSortedOffer] = useState<Offer[]>([]);
   const [currentSort, setCurrentSort] = useState<string>('Popular');
-
-  const offersFromStore = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
+  const offersFromStore = useAppSelector(getOffers);
+  const currentCity = useAppSelector(getCity);
   const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
 
-  const onListItemHover = (listItemId: number) => {
+  useEffect(() => {
+    store.dispatch(fetchFavoriteOffersAction());
+  }, [authorizationStatus, favoritesOffers.length]);
+
+
+  const onListItemHover = useCallback((listItemId: number) => {
     const currentPoint = filteredOffers.find((offer) =>
       offer.id === listItemId,
     );
 
     setSelectedOffer(currentPoint);
-  };
+  }, [filteredOffers]);
 
-  const changeSetSort = (type: string) => {
+  const changeSetSort = useCallback((type: string) => {
     setCurrentSort(type);
-  };
+  }, []);
 
   const sortingOffers = (copyOffers: Offer[]) => {
     switch (currentSort) {
@@ -52,7 +64,9 @@ function MainScreen () : JSX.Element {
     setSortedOffer(sorted ?? []);
   }, [currentSort, filteredOffers]);
 
-
+  if (offersFromStore.length === 0) {
+    return (<MainEmptyScreen/>);
+  }
   return (
     <div className="page page--gray page--main">
       <header className="header">

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import OfferCard from '../../components/offer-card/offer-card';
 import {Offer} from '../../types/offer';
 
@@ -15,9 +16,9 @@ function OfferList ({offers, classnameForCard, classnameForImg, onListItemHover}
 
   return (
     <>
-      {offers.map((offer) => <OfferCard offer={offer} key = {offer.id} classNameForCard={classnameForCard} classNameForImg={classnameForImg} changeSetActive={changeSetActive} />)}
+      {offers.map((offer) => <OfferCard offer={offer} offerId = {offer.id} key = {offer.id} classNameForCard={classnameForCard} classNameForImg={classnameForImg} changeSetActive={changeSetActive} />)}
     </>
   );
 }
 
-export default OfferList;
+export default memo(OfferList);

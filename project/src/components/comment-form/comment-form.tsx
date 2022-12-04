@@ -9,7 +9,7 @@ type Inputs = {
 };
 
 function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
-  const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<Inputs>({mode: 'all'});
+  const { register, handleSubmit, formState: {isValid }, reset } = useForm<Inputs>({mode: 'all'});
   const dispatch = useAppDispatch();
   const submitHandler: SubmitHandler<Inputs> = async (data) => {
     if (hotelId) {
@@ -110,19 +110,13 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
           </svg>
         </label>
       </div>
-      {errors.rating && errors.rating.type === 'required' && <span>Обязательное поле</span>}
 
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        {...register('review', { required: true, minLength: TextLength.minLength, maxLength: TextLength.maxLength, deps: ['rating'] })}
+        {...register('review', { required: true, minLength: TextLength.Min, maxLength: TextLength.Max, deps: ['rating'] })}
       />
-      {errors.review && errors.review.type === 'required' && <span>Обязательное поле</span>}
-      {errors.review && errors.review.type === 'minLength' && <span>Введите минимум 50 символов</span>}
-      {errors.review && errors.review.type === 'maxLength' && <span>Текст отзыва должен содержать до 300 символов.</span>}
-
-
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
             To submit review please make sure to set{' '}

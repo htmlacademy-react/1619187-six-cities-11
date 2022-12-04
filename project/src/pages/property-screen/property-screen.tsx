@@ -13,13 +13,16 @@ import { store } from '../../store';
 import { fetchNearOffersAction, fetchReviews} from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { getNearOffers, getNearOffersDataLoadingStatus, getOffers, getOffersDataLoadingStatus, getReviews } from '../../store/offers-data/selectors';
+import { getCity } from '../../store/user-actions-state/selector';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function PropertyScreen () : JSX.Element {
-  const offersFromStore = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const reviews = useAppSelector((state) => state.reviews);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offersFromStore = useAppSelector(getOffers);
+  const currentCity = useAppSelector(getCity);
+  const nearOffers = useAppSelector(getNearOffers);
+  const reviews = useAppSelector(getReviews);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const {id} = useParams();
   const currentOffer = offersFromStore.find((offer) => id === String(offer.id)); //оффер который отображается в property-screen
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
@@ -32,18 +35,18 @@ function PropertyScreen () : JSX.Element {
     }
   }, [id]);
 
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-  const isNearOffersDataLoading = useAppSelector((state) => state.isNearOffersDataLoading);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
+  const isNearOffersDataLoading = useAppSelector(getNearOffersDataLoadingStatus);
+
+
+  if (!currentOffer) {
+    return <NotFoundScreen/>;
+  }
 
   if (isOffersDataLoading || isNearOffersDataLoading) {
     return (
       <LoadingScreen />
     );
-  }
-
-
-  if (!currentOffer) {
-    return <NotFoundScreen/>;
   }
 
   return (
