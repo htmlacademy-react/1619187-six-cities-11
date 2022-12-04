@@ -1,7 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {Data} from '../../types/state';
-import {fetchOffersAction,fetchNearOffersAction, fetchReviews, addReviewAction, addFavoriteOfferwAction, fetchFavoriteOffersAction } from '../api-actions';
+import {fetchOffersAction,fetchNearOffersAction, fetchReviews, addReviewAction, changeFavoriteOfferwAction, fetchFavoriteOffersAction } from '../api-actions';
 
 const initialState: Data = {
   offers: [],
@@ -17,7 +17,14 @@ const initialState: Data = {
 export const OffersData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    changeFavoriteStatus: (state, action: PayloadAction<{hotelId: number; isFavorite: boolean}>) => {
+      const currentOffer = state.offers.find((offer) => offer.id === action.payload.hotelId);
+
+      if(currentOffer) {
+        currentOffer.isFavorite = action.payload.isFavorite;}
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -51,8 +58,10 @@ export const OffersData = createSlice({
       .addCase(addReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-      .addCase(addFavoriteOfferwAction.fulfilled, (state, action) => {
+      .addCase(changeFavoriteOfferwAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
       });
   }
 });
+
+export const {changeFavoriteStatus} = OffersData.actions;

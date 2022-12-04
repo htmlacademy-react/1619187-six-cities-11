@@ -1,7 +1,8 @@
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
-import { addFavoriteOfferwAction } from '../../store/api-actions';
+import { changeFavoriteOfferwAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
+//import { changeFavoriteStatus } from '../../store/offers-data/offers-data';
 
 type OfferCardProps = {
   changeSetActive: (id: number)=> void;
@@ -16,7 +17,11 @@ function OfferCard ({offer, classNameForCard, classNameForImg, offerId, changeSe
 
   const buttonActiveHandler = () => {
     if (offerId) {
-      dispatch(addFavoriteOfferwAction({hotelId: offerId, status: 1 , isFavorite: true }));
+      if (!offer.isFavorite) {
+        dispatch(changeFavoriteOfferwAction({hotelId: offerId, status: 1 , isFavorite: !offer.isFavorite }));
+      } else {
+        dispatch(changeFavoriteOfferwAction({hotelId: offerId, status: 0 , isFavorite: !offer.isFavorite}));
+      }
     }
   };
 
