@@ -11,3 +11,6 @@ export const getReviews = (state: State): Review[] => state[NameSpace.Data].revi
 export const getReviewsDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isReviewsDataLoading;
 export const getFavoriteOffers = (state: State): Offer[] => state[NameSpace.Data].favoriteOffers;
 export const getFavoriteOffersDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isFavoriteOffersDataLoading;
+export const getCurrentOffer = (state: State): Offer | null => state[NameSpace.Data].currentOffer;
+export const getCurrentOfferDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isCurrentOffersDataLoading;
+

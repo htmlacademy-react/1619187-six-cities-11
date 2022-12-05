@@ -7,7 +7,7 @@ const initialState: UserActionState = {
 };
 
 export const UserActions = createSlice({
-  name: NameSpace.Offers,
+  name: NameSpace.Action,
   initialState,
   reducers: {
     changeCity: (state, action: PayloadAction<string>) => {

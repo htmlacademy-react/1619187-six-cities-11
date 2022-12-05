@@ -9,6 +9,7 @@ export enum AppRoute { //перечисление всех маршрутов
 
 export enum APIRoute {
   Offers = '/hotels',
+  CurrentOffers = '/hotels/{hotelId}',
   FavoriteOffers = '/favorite',
   Login = '/login',
   Logout = '/logout',
@@ -87,6 +88,6 @@ export enum Rating {
 //логическое разделение редьюсера на слайсы
 export enum NameSpace {
   Data = 'DATA',
-  Offers = 'ACTION',
+  Action = 'ACTION',
   User = 'USER',
 }

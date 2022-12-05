@@ -1,20 +1,17 @@
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
-import { changeFavoriteOfferwAction } from '../../store/api-actions';
+import { changeFavoriteOfferAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 
 type FavoriteOfferCardProps = {
   favoriteOffer: Offer;
-  favoriteOfferId: number;
 }
 
-function FavoriteOfferCard ({favoriteOffer, favoriteOfferId}: FavoriteOfferCardProps) : JSX.Element {
+function FavoriteOfferCard ({favoriteOffer}: FavoriteOfferCardProps) : JSX.Element {
   const dispatch = useAppDispatch();
 
   const buttonActiveHandler = () => {
-    if (favoriteOfferId) {
-      dispatch(changeFavoriteOfferwAction({hotelId: favoriteOfferId, status: 0 , isFavorite: !favoriteOffer.isFavorite}));
-    }
+    dispatch(changeFavoriteOfferAction({hotelId: favoriteOffer.id, isFavorite: !favoriteOffer.isFavorite}));
   };
 
   return (
