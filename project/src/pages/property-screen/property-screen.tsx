@@ -10,43 +10,42 @@ import {useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import UserInfo from '../../components/user-info/user-info';
 import { store } from '../../store';
-import { fetchNearOffersAction, fetchReviews} from '../../store/api-actions';
+import { fetchCurrentOfferAction, fetchNearOffersAction, fetchReviews} from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getNearOffers, getNearOffersDataLoadingStatus, getOffers, getOffersDataLoadingStatus, getReviews } from '../../store/offers-data/selectors';
-import { getCity } from '../../store/user-actions-state/selector';
+import { getCurrentOffer, getNearOffers, getNearOffersDataLoadingStatus, getCurrentOfferDataLoadingStatus, getReviews } from '../../store/offers-data/selectors';
+import { getCity } from '../../store/user-actions/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function PropertyScreen () : JSX.Element {
-  const offersFromStore = useAppSelector(getOffers);
   const currentCity = useAppSelector(getCity);
   const nearOffers = useAppSelector(getNearOffers);
   const reviews = useAppSelector(getReviews);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const {id} = useParams();
-  const currentOffer = offersFromStore.find((offer) => id === String(offer.id)); //оффер который отображается в property-screen
+  const currentOffer = useAppSelector(getCurrentOffer); //оффер который отображается в property-screen
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const newOffers = currentOffer && nearOffers !== null ? [...nearOffers, currentOffer] : [];
 
   useEffect(() => {
     if (id) {
       store.dispatch(fetchNearOffersAction({hotelId: id}));
+      store.dispatch(fetchCurrentOfferAction({hotelId: id}));
       store.dispatch(fetchReviews({hotelId: id}));
     }
   }, [id]);
 
-  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
+  const isCurrentOfferDataLoading = useAppSelector(getCurrentOfferDataLoadingStatus);
   const isNearOffersDataLoading = useAppSelector(getNearOffersDataLoadingStatus);
 
-
-  if (!currentOffer) {
-    return <NotFoundScreen/>;
-  }
-
-  if (isOffersDataLoading || isNearOffersDataLoading) {
+  if (isCurrentOfferDataLoading || isNearOffersDataLoading) {
     return (
       <LoadingScreen />
     );
+  }
+
+  if (!currentOffer) {
+    return <NotFoundScreen/>;
   }
 
   return (

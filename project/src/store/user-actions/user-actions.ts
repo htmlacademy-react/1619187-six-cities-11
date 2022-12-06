@@ -1,13 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
-import {UserAction} from '../../types/state';
+import {UserActionState} from '../../types/state';
 
-const initialState: UserAction = {
+const initialState: UserActionState = {
   city: 'Paris',
 };
 
-export const UserActionsState = createSlice({
-  name: NameSpace.Offers,
+export const UserActions = createSlice({
+  name: NameSpace.Action,
   initialState,
   reducers: {
     changeCity: (state, action: PayloadAction<string>) => {
@@ -16,4 +16,4 @@ export const UserActionsState = createSlice({
   },
 });
 
-export const {changeCity} = UserActionsState.actions;
+export const {changeCity} = UserActions.actions;

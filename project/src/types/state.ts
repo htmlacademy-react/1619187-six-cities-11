@@ -9,15 +9,17 @@ export type UserProcess = {
 export type Data = {
   offers: Offer[];
   nearOffers: Offer[];
+  currentOffer: Offer | null;
   reviews: Review[];
   favoriteOffers: Offer[];
   isOffersDataLoading: boolean;
   isNearOffersDataLoading: boolean;
+  isCurrentOffersDataLoading: boolean;
   isReviewsDataLoading: boolean;
   isFavoriteOffersDataLoading: boolean;
 };
 
-export type UserAction = {
+export type UserActionState = {
   city: string;
 }
 

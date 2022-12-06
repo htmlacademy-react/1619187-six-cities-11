@@ -5,7 +5,7 @@ import UserInfo from '../../components/user-info/user-info';
 import { getFavoriteOffers, getFavoriteOffersDataLoadingStatus} from '../../store/offers-data/selectors';
 import FavoritesEmptyScreen from '../favorites-empty-screen/favorites-empty-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
-import FavoriteOfferCard from '../../components/favorite-offers-card/favorite-offers-card';
+import FavoriteOfferCard from '../../components/favorite-offer-card/favorite-offer-card';
 
 function FavoritesScreen () : JSX.Element {
   const favoriteOffersFromStore = useAppSelector(getFavoriteOffers);
@@ -21,6 +21,7 @@ function FavoritesScreen () : JSX.Element {
       <LoadingScreen />
     );
   }
+
   const favoriteCity = favoriteOffersFromStore.map((favoriteOffer) => favoriteOffer.city.name);
   const uniqueFavoriteCities = Array.from(new Set(favoriteCity));
 

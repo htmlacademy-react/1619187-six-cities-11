@@ -1,6 +1,6 @@
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
-import { addFavoriteOfferwAction } from '../../store/api-actions';
+import { changeFavoriteOfferAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 
 type OfferCardProps = {
@@ -16,7 +16,11 @@ function OfferCard ({offer, classNameForCard, classNameForImg, offerId, changeSe
 
   const buttonActiveHandler = () => {
     if (offerId) {
-      dispatch(addFavoriteOfferwAction({hotelId: offerId, status: 1 , isFavorite: true }));
+      if (!offer.isFavorite) {
+        dispatch(changeFavoriteOfferAction({hotelId: offerId, isFavorite: !offer.isFavorite }));
+      } else {
+        dispatch(changeFavoriteOfferAction({hotelId: offerId, isFavorite: !offer.isFavorite}));
+      }
     }
   };
 
@@ -28,6 +32,10 @@ function OfferCard ({offer, classNameForCard, classNameForImg, offerId, changeSe
   const offerMouseleaveHandler = () => {
     changeSetActive(0);
   };
+
+  // const propertyScreenClickHandler = (id: number) => {
+  //   store.dispatch(fetchCurrentOfferAction({hotelId: String(id)}));
+  // };
 
   return (
     <article className={`${classNameForCard} place-card`}

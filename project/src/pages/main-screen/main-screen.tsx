@@ -12,7 +12,7 @@ import { useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
 import UserInfo from '../../components/user-info/user-info';
 import { getFavoriteOffers, getOffers } from '../../store/offers-data/selectors';
-import { getCity } from '../../store/user-actions-state/selector';
+import { getCity } from '../../store/user-actions/selector';
 import MainEmptyScreen from '../main-empty-screen/main-empty-screen';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
