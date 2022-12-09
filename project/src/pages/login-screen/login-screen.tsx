@@ -15,7 +15,7 @@ function LoginScreen () : JSX.Element {
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
-  }; //обработчик для отправки формы
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

@@ -21,9 +21,11 @@ function PropertyScreen () : JSX.Element {
   const currentCity = useAppSelector(getCity);
   const nearOffers = useAppSelector(getNearOffers);
   const reviews = useAppSelector(getReviews);
+  const copyReviews = [...reviews];
+  const sortedReviews = copyReviews.sort((x,y) => Number(y.date) > Number(x.date) ? 1 : -1);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const {id} = useParams();
-  const currentOffer = useAppSelector(getCurrentOffer); //оффер который отображается в property-screen
+  const currentOffer = useAppSelector(getCurrentOffer);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const newOffers = currentOffer && nearOffers !== null ? [...nearOffers, currentOffer] : [];
 
@@ -38,14 +40,14 @@ function PropertyScreen () : JSX.Element {
   const isCurrentOfferDataLoading = useAppSelector(getCurrentOfferDataLoadingStatus);
   const isNearOffersDataLoading = useAppSelector(getNearOffersDataLoadingStatus);
 
+  if (!currentOffer) {
+    return <NotFoundScreen/>;
+  }
+
   if (isCurrentOfferDataLoading || isNearOffersDataLoading) {
     return (
       <LoadingScreen />
     );
-  }
-
-  if (!currentOffer) {
-    return <NotFoundScreen/>;
   }
 
   return (
@@ -71,13 +73,13 @@ function PropertyScreen () : JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {currentOffer.images.map((image)=>
+              {currentOffer.images.slice(0,6).map((image)=>
                 (
                   <div className="property__image-wrapper" key={image}>
                     <img
                       className="property__image"
                       src={image}
-                      alt="Photo studio"
+                      alt="Studio"
                     />
                   </div>))}
             </div>
@@ -111,7 +113,7 @@ function PropertyScreen () : JSX.Element {
                   {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {currentOffer.bedrooms}
+                  {currentOffer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
                     Max {currentOffer.maxAdults} adults
@@ -154,7 +156,7 @@ function PropertyScreen () : JSX.Element {
               Reviews · <span className="reviews__amount">{reviews?.length}</span>
                 </h2>
                 <ul className="reviews__list">
-                  <ReviewList reviews={reviews ?? []}/>
+                  <ReviewList reviews={sortedReviews ?? []}/>
                 </ul>
                 {authorizationStatus === AuthorizationStatus.Auth && <CommentForm hotelId={id}/>}
               </section>

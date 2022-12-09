@@ -1,7 +1,6 @@
-//pages импортируем в app, что бы дальше уже сформировалась карта сайта для перехода между страницами
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {HelmetProvider} from 'react-helmet-async'; //позволяет работать с хедером. Например, задавать title
+import {HelmetProvider} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';

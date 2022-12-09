@@ -1,4 +1,3 @@
-//входной файл для старта работы приложения
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
@@ -9,7 +8,7 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(fetchOffersAction());
-store.dispatch(checkAuthAction()); //проверка статуса авторизации пользователя
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,6 +1,6 @@
 import {Offer} from './types/offer';
 
-export enum AppRoute { //перечисление всех маршрутов
+export enum AppRoute {
   Login = '/login',
   Main = '/',
   Favorites = '/favorites',
@@ -18,10 +18,10 @@ export enum APIRoute {
   FavoriteOffer = '/favorite/{hotelId}/{status}',
 }
 
-export enum AuthorizationStatus { //перечисление вариантов авторизации
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN', //сначала "думаем", что статус Unknown, потом делаем запрос к серверу
+  Unknown = 'UNKNOWN',
 }
 
 export const CITIES = [
@@ -85,7 +85,7 @@ export enum Rating {
   Min = 1,
   Max= 5
 }
-//логическое разделение редьюсера на слайсы
+
 export enum NameSpace {
   Data = 'DATA',
   Action = 'ACTION',

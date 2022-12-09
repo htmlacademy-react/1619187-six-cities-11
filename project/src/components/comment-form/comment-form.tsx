@@ -19,7 +19,7 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
 
       reset();
     }
-  }; //обработчик для отправки формы комментария
+  };
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises

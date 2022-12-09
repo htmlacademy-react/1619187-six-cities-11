@@ -1,7 +1,9 @@
 import {Offer} from '../../types/offer';
-import {Link} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import { changeFavoriteOfferAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 type OfferCardProps = {
   changeSetActive: (id: number)=> void;
@@ -12,19 +14,18 @@ type OfferCardProps = {
 }
 
 function OfferCard ({offer, classNameForCard, classNameForImg, offerId, changeSetActive}: OfferCardProps) : JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const buttonActiveHandler = () => {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
+      <Navigate to={AppRoute.Login}/>;
+    } else
     if (offerId) {
-      if (!offer.isFavorite) {
-        dispatch(changeFavoriteOfferAction({hotelId: offerId, isFavorite: !offer.isFavorite }));
-      } else {
-        dispatch(changeFavoriteOfferAction({hotelId: offerId, isFavorite: !offer.isFavorite}));
-      }
+      dispatch(changeFavoriteOfferAction({hotelId: offerId, isFavorite: !offer.isFavorite }));
     }
   };
 
-  //что бы записать значение из полей формы в состояние нужен обработчик
   const offerMouseEnterHandler = () => {
     changeSetActive(offer.id);
   };
@@ -32,10 +33,6 @@ function OfferCard ({offer, classNameForCard, classNameForImg, offerId, changeSe
   const offerMouseleaveHandler = () => {
     changeSetActive(0);
   };
-
-  // const propertyScreenClickHandler = (id: number) => {
-  //   store.dispatch(fetchCurrentOfferAction({hotelId: String(id)}));
-  // };
 
   return (
     <article className={`${classNameForCard} place-card`}

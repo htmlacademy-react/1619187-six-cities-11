@@ -1,6 +1,3 @@
-//в странички будем импортировать более мелкие компоненты из components, например, хедер, футер, карточки и тд
-//сами стр потом импортируем в app
-
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
