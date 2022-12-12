@@ -1,5 +1,5 @@
 import {Offer} from '../../types/offer';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { changeFavoriteOfferAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -16,10 +16,12 @@ type OfferCardProps = {
 function OfferCard ({offer, classNameForCard, classNameForImg, offerId, changeSetActive}: OfferCardProps) : JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const buttonActiveHandler = () => {
+
     if (authorizationStatus === AuthorizationStatus.NoAuth) {
-      <Navigate to={AppRoute.Login}/>;
+      navigate(AppRoute.Login);
     } else
     if (offerId) {
       dispatch(changeFavoriteOfferAction({hotelId: offerId, isFavorite: !offer.isFavorite }));

@@ -22,7 +22,7 @@ function PropertyScreen () : JSX.Element {
   const nearOffers = useAppSelector(getNearOffers);
   const reviews = useAppSelector(getReviews);
   const copyReviews = [...reviews];
-  const sortedReviews = copyReviews.sort((x,y) => Number(y.date) > Number(x.date) ? 1 : -1);
+  const sortedReviews = copyReviews.sort((x,y) => Number(y.date) > Number(x.date) ? 1 : -1).slice(0,10);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const {id} = useParams();
   const currentOffer = useAppSelector(getCurrentOffer);
@@ -153,7 +153,7 @@ function PropertyScreen () : JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-              Reviews · <span className="reviews__amount">{reviews?.length}</span>
+              Reviews · <span className="reviews__amount">{sortedReviews?.length}</span>
                 </h2>
                 <ul className="reviews__list">
                   <ReviewList reviews={sortedReviews ?? []}/>
