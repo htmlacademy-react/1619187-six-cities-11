@@ -12,6 +12,7 @@ function SortOptions ({sortType, currentSort, changeSetSort}: SortOptionsProps) 
 
   const sortClickHandler = (type: string) => () =>{
     changeSetSort(type);
+    setActiveState(!activeState);
   };
 
   const placesOptionsClickHandler = () => {

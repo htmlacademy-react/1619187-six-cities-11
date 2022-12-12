@@ -13,13 +13,15 @@ function CommentForm ({hotelId}: {hotelId?: string}) : JSX.Element {
   const dispatch = useAppDispatch();
   const submitHandler: SubmitHandler<Inputs> = async (data) => {
     if (hotelId) {
-      await dispatch(addReviewAction({comment: data.review,
+      const response = await dispatch(addReviewAction({comment: data.review,
         hotelId,
         rating: Number(data.rating)}));
 
-      reset();
+      if(response.meta.requestStatus === 'fulfilled') {
+        reset();
+      }
     }
-  }; //обработчик для отправки формы комментария
+  };
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises

@@ -17,6 +17,7 @@ export type Data = {
   isCurrentOffersDataLoading: boolean;
   isReviewsDataLoading: boolean;
   isFavoriteOffersDataLoading: boolean;
+  errorMessage: string | undefined;
 };
 
 export type UserActionState = {

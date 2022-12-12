@@ -8,36 +8,36 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { Review } from '../types/review';
 import { ReviewData } from '../types/review-data';
-import { newReviewData } from '../types/new-review-data';
+import { NewReviewData } from '../types/new-review-data';
 import { FavoriteOfferData } from '../types/favorite-offer-data';
 import { changeFavoriteStatus } from './offers-data/offers-data';
 
 
-export const fetchOffersAction = createAsyncThunk<Offer[], undefined, { //загрузка списка офферов
+export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer[]>(APIRoute.Offers); //получаем данные
+    const {data} = await api.get<Offer[]>(APIRoute.Offers);
     return data;
   },
 );
 
-export const fetchCurrentOfferAction = createAsyncThunk<Offer, {hotelId: string}, { //загрузка выбранного оффера
+export const fetchCurrentOfferAction = createAsyncThunk<Offer, {hotelId: string}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchCurrentOffers',
   async ({hotelId}, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer>(APIRoute.CurrentOffers.replace('{hotelId}', hotelId)); //получаем данные
+    const {data} = await api.get<Offer>(APIRoute.CurrentOffers.replace('{hotelId}', hotelId));
     return data;
   },
 );
 
-export const fetchNearOffersAction = createAsyncThunk<Offer[], {hotelId: string}, { //загрузка списка офферов поблизости
+export const fetchNearOffersAction = createAsyncThunk<Offer[], {hotelId: string}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -48,19 +48,19 @@ export const fetchNearOffersAction = createAsyncThunk<Offer[], {hotelId: string}
     return data;
   },
 );
-export const fetchFavoriteOffersAction = createAsyncThunk<Offer[], undefined, { //загрузка списка избранных офферов
+export const fetchFavoriteOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchFavoriteOffers',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer[]>(APIRoute.FavoriteOffers); //получаем данные
+    const {data} = await api.get<Offer[]>(APIRoute.FavoriteOffers);
     return data;
   },
 );
 
-export const fetchReviews = createAsyncThunk<Review[], {hotelId: string}, { //загрузка списка отзывов к офферу
+export const fetchReviews = createAsyncThunk<Review[], {hotelId: string}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -72,14 +72,14 @@ export const fetchReviews = createAsyncThunk<Review[], {hotelId: string}, { //з
   },
 );
 
-export const addReviewAction = createAsyncThunk<newReviewData[], ReviewData, {
+export const addReviewAction = createAsyncThunk<NewReviewData[], ReviewData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/review',
   async ({comment, rating, hotelId}, {dispatch, extra: api}) => {
-    const {data} = await api.post<newReviewData[]>(APIRoute.Reviews.replace('{hotelId}', String(hotelId)), {comment, rating});
+    const {data} = await api.post<NewReviewData[]>(APIRoute.Reviews.replace('{hotelId}', String(hotelId)), {comment, rating});
     return data;
   },
 );
@@ -97,7 +97,7 @@ export const changeFavoriteOfferAction = createAsyncThunk<Offer, FavoriteOfferDa
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, { //проверка наличия авторизации
+export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

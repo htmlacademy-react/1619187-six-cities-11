@@ -1,10 +1,9 @@
 import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 
-//этим компонентом будем оборачивать приватные маршруты (которые доступны после авторизации)
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
-  children: JSX.Element; //компонент, который будет отрисовываться, если мы авторизованы
+  children: JSX.Element;
 }
 
 function FavouritePrivateRoute(props: PrivateRouteProps): JSX.Element {
@@ -13,7 +12,7 @@ function FavouritePrivateRoute(props: PrivateRouteProps): JSX.Element {
   return (
     authorizationStatus === AuthorizationStatus.Auth
       ? children
-      : <Navigate to={AppRoute.Login} /> //выполняем перенаправление на др страницу
+      : <Navigate to={AppRoute.Login} />
   );
 }
 

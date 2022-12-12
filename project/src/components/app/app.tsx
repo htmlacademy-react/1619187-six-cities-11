@@ -1,7 +1,6 @@
-//pages импортируем в app, что бы дальше уже сформировалась карта сайта для перехода между страницами
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {HelmetProvider} from 'react-helmet-async'; //позволяет работать с хедером. Например, задавать title
+import {HelmetProvider} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
@@ -12,13 +11,14 @@ import FavouritePrivateRoute from '../favourite-private-route/favourite-private-
 import LoginPrivateRoute from '../login-private-route/login-private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/selectors';
+import {getOffersDataLoadingStatus} from '../../store/offers-data/selectors';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
 
-
-  if (!isAuthChecked) {
+  if (!isAuthChecked || isOffersDataLoading) {
     return (
       <LoadingScreen />
     );

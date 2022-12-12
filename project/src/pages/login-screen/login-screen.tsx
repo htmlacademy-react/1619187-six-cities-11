@@ -6,6 +6,8 @@ import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
 
 
+const checkPassword = (password: string) => password.length >= 2 && password.match(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/g);
+
 function LoginScreen () : JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -15,12 +17,12 @@ function LoginScreen () : JSX.Element {
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
-  }; //обработчик для отправки формы
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current !== null && passwordRef.current !== null && checkPassword(passwordRef.current?.value)) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -67,6 +69,9 @@ function LoginScreen () : JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  minLength={2}
+                  pattern="^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$"
+                  title="Пароль должен содержать минимум 1 букву и 1 цифру"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">

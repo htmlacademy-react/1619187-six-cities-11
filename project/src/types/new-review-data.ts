@@ -1,4 +1,4 @@
-export type newReviewData =
+export type NewReviewData =
 {
   comment: string;
   date: string;

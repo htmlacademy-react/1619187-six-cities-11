@@ -1,6 +1,3 @@
-//в странички будем импортировать более мелкие компоненты из components, например, хедер, футер, карточки и тд
-//сами стр потом импортируем в app
-
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
@@ -11,28 +8,21 @@ import CitiesList from '../../components/cities-list/cities-list';
 import { useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
 import UserInfo from '../../components/user-info/user-info';
-import { getFavoriteOffers, getOffers } from '../../store/offers-data/selectors';
+import {getErrorMessage, getOffers} from '../../store/offers-data/selectors';
 import { getCity } from '../../store/user-actions/selector';
 import MainEmptyScreen from '../main-empty-screen/main-empty-screen';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { fetchFavoriteOffersAction } from '../../store/api-actions';
-import { store } from '../../store';
+import ErrorMessageScreen from '../error-message-screen/error-message-screen';
+
 
 function MainScreen () : JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer>();
   const [sortedOffers, setSortedOffer] = useState<Offer[]>([]);
   const [currentSort, setCurrentSort] = useState<string>('Popular');
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const favoritesOffers = useAppSelector(getFavoriteOffers);
   const offersFromStore = useAppSelector(getOffers);
   const currentCity = useAppSelector(getCity);
-  const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
+  const errorMessage = useAppSelector(getErrorMessage);
+  const filteredOffers = useMemo(() => offersFromStore?.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
-
-  useEffect(() => {
-    store.dispatch(fetchFavoriteOffersAction());
-  }, [authorizationStatus, favoritesOffers.length]);
-
 
   const onListItemHover = useCallback((listItemId: number) => {
     const currentPoint = filteredOffers.find((offer) =>
@@ -63,7 +53,9 @@ function MainScreen () : JSX.Element {
     const sorted = sortingOffers([...filteredOffers]);
     setSortedOffer(sorted ?? []);
   }, [currentSort, filteredOffers]);
-
+  if (errorMessage !== undefined) {
+    return (<ErrorMessageScreen message = {errorMessage}/>);
+  }
   if (offersFromStore.length === 0) {
     return (<MainEmptyScreen/>);
   }
