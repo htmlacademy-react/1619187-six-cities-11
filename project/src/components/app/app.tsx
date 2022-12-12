@@ -11,13 +11,14 @@ import FavouritePrivateRoute from '../favourite-private-route/favourite-private-
 import LoginPrivateRoute from '../login-private-route/login-private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/selectors';
+import {getOffersDataLoadingStatus} from '../../store/offers-data/selectors';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
 
-
-  if (!isAuthChecked) {
+  if (!isAuthChecked || isOffersDataLoading) {
     return (
       <LoadingScreen />
     );

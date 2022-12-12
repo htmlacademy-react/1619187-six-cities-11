@@ -8,9 +8,10 @@ import CitiesList from '../../components/cities-list/cities-list';
 import { useAppSelector} from '../../hooks/index';
 import SortOptions from '../../components/sort-options/sort-options';
 import UserInfo from '../../components/user-info/user-info';
-import {getOffers } from '../../store/offers-data/selectors';
+import {getErrorMessage, getOffers} from '../../store/offers-data/selectors';
 import { getCity } from '../../store/user-actions/selector';
 import MainEmptyScreen from '../main-empty-screen/main-empty-screen';
+import ErrorMessageScreen from '../error-message-screen/error-message-screen';
 
 
 function MainScreen () : JSX.Element {
@@ -19,7 +20,8 @@ function MainScreen () : JSX.Element {
   const [currentSort, setCurrentSort] = useState<string>('Popular');
   const offersFromStore = useAppSelector(getOffers);
   const currentCity = useAppSelector(getCity);
-  const filteredOffers = useMemo(() => offersFromStore.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
+  const errorMessage = useAppSelector(getErrorMessage);
+  const filteredOffers = useMemo(() => offersFromStore?.filter((offer) => offer.city.name === currentCity), [offersFromStore, currentCity]);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
 
   const onListItemHover = useCallback((listItemId: number) => {
@@ -51,7 +53,9 @@ function MainScreen () : JSX.Element {
     const sorted = sortingOffers([...filteredOffers]);
     setSortedOffer(sorted ?? []);
   }, [currentSort, filteredOffers]);
-
+  if (errorMessage !== undefined) {
+    return (<ErrorMessageScreen message = {errorMessage}/>);
+  }
   if (offersFromStore.length === 0) {
     return (<MainEmptyScreen/>);
   }

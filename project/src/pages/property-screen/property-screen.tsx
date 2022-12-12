@@ -1,19 +1,30 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
-import {useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {AuthorizationStatus, CITIES} from '../../const';
-import {useAppSelector } from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import UserInfo from '../../components/user-info/user-info';
 import { store } from '../../store';
-import { fetchCurrentOfferAction, fetchNearOffersAction, fetchReviews} from '../../store/api-actions';
+import {
+  fetchCurrentOfferAction,
+  fetchNearOffersAction,
+  fetchReviews
+} from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getCurrentOffer, getNearOffers, getNearOffersDataLoadingStatus, getCurrentOfferDataLoadingStatus, getReviews } from '../../store/offers-data/selectors';
+import {
+  getCurrentOffer,
+  getNearOffers,
+  getNearOffersDataLoadingStatus,
+  getCurrentOfferDataLoadingStatus,
+  getReviews,
+  getReviewsDataLoadingStatus
+} from '../../store/offers-data/selectors';
 import { getCity } from '../../store/user-actions/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
@@ -39,12 +50,13 @@ function PropertyScreen () : JSX.Element {
 
   const isCurrentOfferDataLoading = useAppSelector(getCurrentOfferDataLoadingStatus);
   const isNearOffersDataLoading = useAppSelector(getNearOffersDataLoadingStatus);
+  const isReviewDataLoading = useAppSelector(getReviewsDataLoadingStatus);
 
   if (!currentOffer) {
     return <NotFoundScreen/>;
   }
 
-  if (isCurrentOfferDataLoading || isNearOffersDataLoading) {
+  if (isCurrentOfferDataLoading || isNearOffersDataLoading || isReviewDataLoading) {
     return (
       <LoadingScreen />
     );
