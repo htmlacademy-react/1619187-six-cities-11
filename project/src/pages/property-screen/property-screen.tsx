@@ -6,11 +6,12 @@ import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {AuthorizationStatus, CITIES} from '../../const';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import UserInfo from '../../components/user-info/user-info';
 import { store } from '../../store';
 import {
+  changeFavoriteOfferAction,
   fetchCurrentOfferAction,
   fetchNearOffersAction,
   fetchReviews
@@ -39,6 +40,10 @@ function PropertyScreen () : JSX.Element {
   const currentOffer = useAppSelector(getCurrentOffer);
   const filteredCity = CITIES.filter((city) => city.title === currentCity);
   const newOffers = currentOffer && nearOffers !== null ? [...nearOffers, currentOffer] : [];
+  const isCurrentOfferDataLoading = useAppSelector(getCurrentOfferDataLoadingStatus);
+  const isNearOffersDataLoading = useAppSelector(getNearOffersDataLoadingStatus);
+  const isReviewDataLoading = useAppSelector(getReviewsDataLoadingStatus);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
@@ -48,10 +53,11 @@ function PropertyScreen () : JSX.Element {
     }
   }, [id]);
 
-  const isCurrentOfferDataLoading = useAppSelector(getCurrentOfferDataLoadingStatus);
-  const isNearOffersDataLoading = useAppSelector(getNearOffersDataLoadingStatus);
-  const isReviewDataLoading = useAppSelector(getReviewsDataLoadingStatus);
-
+  const buttonActiveHandler = () => {
+    if (currentOffer?.id) {
+      dispatch(changeFavoriteOfferAction({hotelId: currentOffer.id, isFavorite: !currentOffer?.isFavorite}));
+    }
+  };
   if (!currentOffer) {
     return <NotFoundScreen/>;
   }
@@ -106,7 +112,7 @@ function PropertyScreen () : JSX.Element {
                 <h1 className="property__name">
                   {currentOffer.title}
                 </h1>
-                <button className={`property__bookmark-button button ${currentOffer.isFavorite ? 'property__bookmark-button--active' : '' }`} type="button">
+                <button className={`property__bookmark-button button ${currentOffer.isFavorite ? 'property__bookmark-button--active' : '' }`} type="button" onClick={buttonActiveHandler}>
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
