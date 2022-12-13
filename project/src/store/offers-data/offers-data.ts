@@ -27,8 +27,11 @@ export const OffersData = createSlice({
       if(currentOffer) {
         currentOffer.isFavorite = action.payload.isFavorite;
       }
-      if (currentOfferFromStore) {
-        currentOfferFromStore.isFavorite = action.payload.isFavorite;
+      if (currentOffer?.id === currentOfferFromStore?.id) {
+        if (currentOfferFromStore) {
+          currentOfferFromStore.isFavorite = action.payload.isFavorite;
+        }
+
       }
     },
   },
