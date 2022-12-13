@@ -9,15 +9,16 @@ import FavoriteOfferCard from '../../components/favorite-offer-card/favorite-off
 import {useEffect} from 'react';
 import {store} from '../../store';
 import {fetchFavoriteOffersAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function FavoritesScreen () : JSX.Element {
   const favoriteOffersFromStore = useAppSelector(getFavoriteOffers);
   const isFavoriteOffersDataLoading = useAppSelector(getFavoriteOffersDataLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     store.dispatch(fetchFavoriteOffersAction());
-  }, [favoriteOffersFromStore.length]);
-
+  }, [authorizationStatus,favoriteOffersFromStore.length]);
 
   if (favoriteOffersFromStore.length === 0) {
     return (<FavoritesEmptyScreen/>);
