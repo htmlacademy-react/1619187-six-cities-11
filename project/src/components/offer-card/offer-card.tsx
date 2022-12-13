@@ -1,6 +1,6 @@
 import {Offer} from '../../types/offer';
 import {Link, useNavigate} from 'react-router-dom';
-import { changeFavoriteOfferAction } from '../../store/api-actions';
+import {changeFavoriteOfferAction} from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import {AppRoute, AuthorizationStatus} from '../../const';
